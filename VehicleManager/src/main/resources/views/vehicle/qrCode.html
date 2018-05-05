@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8" />
+		<title>二维码</title>
+		<link rel="stylesheet" th:href="@{/css/bootstrap.css}"></link>
+	</head>
+	<body class="container">
+		<div class="with:80%">
+		<br />
+		<h1>
+			<p th:text=" ${chpNo}+'二维码'" />
+		</h1>
+		<br />
+		<br />
+			<img th:src="${qrCodePath}" height="300" width="300" />
+		</div>
+	</body>
+</html>

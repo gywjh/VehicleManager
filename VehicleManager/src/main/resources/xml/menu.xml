@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+	<menu id="1" text="用户管理" icon="icon-user" url="" auth="0">
+        <menu id="1_1" text="用户注册" icon="icon-cog" url="" auth="0"></menu>
+        <menu id="1_2" text="用户查询" icon="icon-list" url="/user" auth="0"></menu>
+    </menu>
+    <menu id="2" text="车辆管理" icon="icon-truck" url="" auth="0">
+        <menu id="2_1" text="车辆登记" icon="icon-cog" url="/vehicle/add" auth="0"></menu>
+        <menu id="2_2" text="车辆查询" icon="icon-th-list" url="/vehicle/query" auth="0"></menu>
+        <menu id="2_3" text="信息导出" icon="icon-share" url="" auth="0"></menu>
+        <menu id="2_4" text="车辆二维码" icon="icon-qrcode" url="" auth="0"></menu>
+        <menu id="2_5" text="回收站" icon="icon-trash" url="" auth="0"></menu>
+    </menu>
+    <menu id="3" text="短信管理" icon="icon-envelope" url="" auth="0">
+        <menu id="3_1" text="信息查询" icon="icon-mail-forward" url="/message/query" auth="0"></menu>
+        <menu id="3_2" text="回收站" icon="icon-trash" url="/message/qyeryRyc" auth="0"></menu>
+    </menu>
+    <menu id="4" text="车辆护送" icon="icon-road" url="" auth="0">
+        <menu id="4_1" text="护送信息" icon="icon-cog" url="" auth="0"></menu>
+    </menu>
+    <menu id="5" text="操作记录管理" icon="icon-wrench" url="" auth="0">
+        <menu id="5_1" text="日志查询" icon="icon-cog" url="" auth="0"></menu>
+    </menu>
+</root>

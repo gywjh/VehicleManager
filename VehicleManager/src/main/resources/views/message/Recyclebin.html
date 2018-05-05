@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8" />
+		<title>userList</title>
+		<link rel="stylesheet" th:href="@{/css/bootstrap.css}"></link>
+	</head>
+	<body class="container">
+		<br />
+		<h1>短信列表</h1>
+		<br />
+		<br />
+		<div class="with:80%">
+			<form th:action="@{/message/qyeryRyc}" method="get">
+				<table class="table table-hover">
+					<tr>
+						<td>
+							开始时间:
+							<input type="date" id="startTime" name="startTime"
+								th:value="${startTime}" />
+						</td>
+						<td>
+							结束时间:
+							<input type="date" id="endTime" name="endTime" th:value="${endTime}" />
+							<input type="submit" value="查询" />
+						</td>
+					</tr>
+				</table>
+			</form>
+		</div>
+		<div class="with:80%">
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th>#</th>
+						<th>内容</th>
+						<th>时间</th>
+						<th></th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="message : ${messages}">
+						<th scope="row" th:text="${message.id}"></th>
+						<td th:text="${message.messageContent}"></td>
+						<td th:text="${#dates.format(message.recordTime,'yyyy-MM-dd hh:mm:ss')}"
+							th:if="${message.recordTime!='n/a'}"></td>
+						<td>
+							<a th:href="@{/message/update(id=${message.id})}">恢復</a>
+						</td>
+						<td>
+							<a th:href="@{/vehicle/remove(id=${message.id})}">永久删除</a>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+
+		<div class="with:80%">
+			<ul class="pagination">
+				<!-- 上一页 -->
+				<li class="page-item" th:if="${messages.totalPages gt 0}"
+					data-th-classappend="*{first} ? 'disabled' : ''">
+					<a herf="javascript:void(0);" th:href="@{/message/find(currenPage=${messages.number} - 1)}"
+						class="page-link" data-th-attr="pageIndex=${messages.number} - 1"
+						aria-label="Previous">
+						<span aria-hidden="true">«</span>
+					</a>
+				</li>
+
+				<!-- 迭代生成页码 -->
+				<li class="page-item" data-th-if="${messages.totalPages gt 0}"
+					data-th-each="i : ${#numbers.sequence(1, messages.totalPages)}"
+					data-th-classappend="${(messages.number + 1) eq i} ? 'active' : ''">
+					<a class="page-link" data-th-attr="pageIndex=${i} - 1" herf="javascript:void(0);"
+						th:href="@{/message/find(currenPage=${i-1})}">
+						<span data-th-text="${i}"></span>
+					</a>
+				</li>
+
+				<!-- 下一页 -->
+				<li class="page-item" th:if="${messages.totalPages gt 0}"
+					data-th-classappend="*{last} ? 'disabled' : ''">
+					<a herf="javascript:void(0);" th:href="@{/message/find(currenPage=${messages.number} + 1)}"
+						class="page-link" data-th-attr="pageIndex=${messages.number} + 1"
+						aria-label="Next">
+						<span aria-hidden="true">»</span>
+					</a>
+				</li>
+			</ul>
+		</div>
+	</body>
+</html>
