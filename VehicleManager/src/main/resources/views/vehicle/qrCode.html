@@ -4,16 +4,50 @@
 		<meta charset="UTF-8" />
 		<title>二维码</title>
 		<link rel="stylesheet" th:href="@{/css/bootstrap.css}"></link>
+		<link th:href="@{/bootstrap/bootstrap/css/bootstrap.min.css}"
+			rel="stylesheet" media="screen"></link>
+		<link th:href="@{/bootstrap/bootstrap/css/bootstrap-responsive.min.css}"
+			rel="stylesheet" media="screen"></link>
+		<link th:href="@{/vendors/easypiechart/jquery.easy-pie-chart.css}"
+			rel="stylesheet" media="screen"></link>
+		<link th:href="@{/assets/styles.css}" rel="stylesheet" media="screen"></link>
 	</head>
 	<body class="container">
-		<div class="with:80%">
-		<br />
-		<h1>
-			<p th:text=" ${chpNo}+'二维码'" />
-		</h1>
-		<br />
-		<br />
-			<img th:src="${qrCodePath}" height="300" width="300" />
+		
+				<!-- block -->
+				<div class="navbar navbar-inner block-header">
+					<div class="pull-left">
+						<span class="badge badge-info">
+							<p th:text=" ${chpNo}+'二维码'" />
+						</span>
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						<a th:href="@{/vehicle/print(qrCode=${qrCode})}">打印</a>
+					</div>
+				</div>
+				<div class="block-content collapse in">
+					<div class="row-fluid padd-bottom">
+						<div class="span12">
+							<img data-src="holder.js/300x300" alt="300x300"
+								style="width: 300px; height: 300px;" th:src="${qrCodePath}"></img>
+						</div>
+					</div>
+			<!-- /block -->
 		</div>
+		<!--/.fluid-container -->
+
+		<script th:src="@{/js/jquery-1.9.1.js}"></script>
+		<script th:src="@{/bootstrap/bootstrap/js/bootstrap.min.js}"></script>
+		<script th:src="@{/vendors/datatables/js/jquery.dataTables.min.js}"></script>
+		<script th:src="@{/assets/scripts.js}"></script>
+		<script th:src="@{/assets/DT_bootstrap.js}"></script>
+		<script th:src="@{/vendors/easypiechart/jquery.easy-pie-chart.js}"></script>
+		<script>
+			$(function() {
+			// Easy pie charts
+			$('.chart').easyPieChart({animate: 1000});
+			});
+		</script>
 	</body>
 </html>

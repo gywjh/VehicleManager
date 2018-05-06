@@ -16,6 +16,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -33,15 +34,13 @@ public class MessageController {
 	@Autowired
 	private MessageRepository messageRepository;
 
+	private int totalPage = 0;
 	private DateFormat sf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 
 	@RequestMapping(path = "/query", method = RequestMethod.GET)
-	public String queryMessage(Model model) {
+	public String queryMessage1(Model model) {
 		logger.error("start query message info.");
-		Pageable pageable = Constants.getPageable(0, "recordTime");
-		Page<MessageInfo> pageInfo = messageRepository.findViewByMessageState(true, pageable);
-		// initServerData();
-		// List<MessageInfo> messageList = messageRepository.findAll();
+		List<MessageInfo> pageInfo = messageRepository.findAllByMessageState(true);
 		model.addAttribute("messages", pageInfo);
 		return "message/list";
 	}
@@ -49,18 +48,27 @@ public class MessageController {
 	@RequestMapping(path = "/find", method = RequestMethod.GET)
 	public String findMessageByTime(Model model, String startTime, String endTime, Integer currenPage) {
 		currenPage = null == currenPage ? 0 : currenPage;
-		Pageable pageable = Constants.getPageable(currenPage, "recordTime");
-		startTime = startTime + " 00:00:00";
-		endTime = endTime + " 23:59:59";
-		Page<MessageInfo> pageInfo;
+		Date startDate = null;
+		Date endDate = null;
 		try {
-			pageInfo = messageRepository.findByRecordTime(sf.parse(startTime), sf.parse(endTime), true, pageable);
-			model.addAttribute("messages", pageInfo);
-			model.addAttribute("startTime", startTime);
-			model.addAttribute("endTime", endTime);
+			if (!StringUtils.isEmpty(startTime)) {
+				startTime = startTime + " 00:00:00";
+				startDate = sf.parse(startTime);
+			}
+			if (!StringUtils.isEmpty(endTime)) {
+				endTime = endTime + " 23:59:59";
+				endDate = sf.parse(endTime);
+			}
 		} catch (ParseException e) {
 			logger.error(e.getMessage(), e);
 		}
+		Pageable pageable = Constants.getPageable(currenPage, "recordTime");
+		Page<MessageInfo> pageInfo = messageRepository.findByRecordTime(startDate, endDate, true, pageable);
+		this.setTotalPage(pageInfo.getTotalPages() <= 0 ? 1 : pageInfo.getTotalPages());
+		model.addAttribute("messages", pageInfo);
+		model.addAttribute("totalPage", totalPage);
+		model.addAttribute("startTime", startTime);
+		model.addAttribute("endTime", endTime);
 		return "message/list";
 	}
 
@@ -78,11 +86,19 @@ public class MessageController {
 		return "redirect:/message/query";
 	}
 
+	@RequestMapping(path = "/deleteOne", method = RequestMethod.GET)
+	public String updateOneMessage(int id) {
+		MessageInfo message = messageRepository.findById(id);
+		message.setMessageState(false);
+		message.setRecordTime(new Date());
+		messageRepository.saveAndFlush(message);
+		return "redirect:/message/query";
+	}
+
 	@RequestMapping(path = "/qyeryRyc", method = RequestMethod.GET)
 	public String findRecyclebinMessageByTime(Model model, String startTime, String endTime, Integer currenPage) {
 		logger.error("start query message info.");
-		Pageable pageable = Constants.getPageable(0, "recordTime");
-		Page<MessageInfo> pageInfo = messageRepository.findViewByMessageState(false, pageable);
+		List<MessageInfo> pageInfo = messageRepository.findAllByMessageState(false);
 		model.addAttribute("messages", pageInfo);
 		return "message/Recyclebin";
 	}
@@ -102,7 +118,7 @@ public class MessageController {
 		return "redirect:/message/qyeryRyc";
 	}
 
-	@RequestMapping(path = "/remove", method = RequestMethod.DELETE)
+	@RequestMapping(path = "/remove", method = RequestMethod.GET)
 	public String deleteMessage(Model model, int id) {
 
 		messageRepository.delete(id);
@@ -126,6 +142,14 @@ public class MessageController {
 			messageList.add(messageInfo);
 		}
 		messageRepository.save(messageList);
-
 	}
+
+	public int getTotalPage() {
+		return totalPage;
+	}
+
+	public void setTotalPage(int totalPage) {
+		this.totalPage = totalPage;
+	}
+
 }

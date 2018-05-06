@@ -14,6 +14,11 @@ public interface MessageRepository extends JpaRepository<MessageInfo, Integer> {
 
 	public MessageInfo findById(Integer id);
 	
+	
+	@Query("select new MessageInfo(c.id as id,c.messageContent as messageContent,c.recordTime as recordTime, c.messageState as messageState) from MessageInfo c where c.messageState=?1 ")
+	public List<MessageInfo> findAllByMessageState(Boolean messageState);
+	
+	
 	@Query("select new MessageInfo(c.id as id,c.messageContent as messageContent,c.recordTime as recordTime, c.messageState as messageState) from MessageInfo c where c.messageState=?1 ")
 	public Page<MessageInfo> findViewByMessageState(Boolean messageState,Pageable pageable);
 

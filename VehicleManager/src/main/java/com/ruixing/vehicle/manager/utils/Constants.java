@@ -34,7 +34,7 @@ public class Constants {
 	 */
 	public final static String QR_GENERATE_PATH = "/static/images/upload/";
 	
-	private final static int PAGE_SIZE = 15;
+	private final static int PAGE_SIZE = 5;
 	
 	public static final Pageable getPageable(int currentPage,String key)
 	{

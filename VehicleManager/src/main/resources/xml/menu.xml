@@ -7,9 +7,10 @@
     <menu id="2" text="车辆管理" icon="icon-truck" url="" auth="0">
         <menu id="2_1" text="车辆登记" icon="icon-cog" url="/vehicle/add" auth="0"></menu>
         <menu id="2_2" text="车辆查询" icon="icon-th-list" url="/vehicle/query" auth="0"></menu>
-        <menu id="2_3" text="信息导出" icon="icon-share" url="" auth="0"></menu>
+        <!-- <menu id="2_3" text="信息导出" icon="icon-share" url="" auth="0"></menu>
         <menu id="2_4" text="车辆二维码" icon="icon-qrcode" url="" auth="0"></menu>
-        <menu id="2_5" text="回收站" icon="icon-trash" url="" auth="0"></menu>
+         -->
+        <menu id="2_5" text="回收站" icon="icon-trash" url="/vehicle/queryRyc" auth="0"></menu>
     </menu>
     <menu id="3" text="短信管理" icon="icon-envelope" url="" auth="0">
         <menu id="3_1" text="信息查询" icon="icon-mail-forward" url="/message/query" auth="0"></menu>

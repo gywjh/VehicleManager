@@ -1,6 +1,6 @@
 package com.ruixing.vehicle.manager.vehicle.service;
 
-import org.springframework.data.domain.Page;
+import java.util.List;
 
 import com.ruixing.vehicle.manager.domain.VehicleInfo;
 
@@ -18,7 +18,7 @@ public interface IVehicleService {
 	 * 
 	 * @return
 	 */
-	public boolean updateVehicleInfo(VehicleInfo vehicleInfo);
+	public void updateVehicleInfo(VehicleInfo vehicleInfo);
 
 	/**
 	 * 扫一扫
@@ -26,9 +26,9 @@ public interface IVehicleService {
 	 * @param qrPath
 	 * @return
 	 */
-	public VehicleInfo findByQrCode(String qrPath);
+	public VehicleInfo findByQrImge(String qrPath);
 
-	public VehicleInfo findByQrImg(String qrCode);
+	public VehicleInfo findByQrCode(String qrCode);
 	
 	/**
 	 * 删除车辆信息
@@ -44,7 +44,7 @@ public interface IVehicleService {
 	 */
 	public String exprotVehicleInfo();
 
-	public Page<VehicleInfo> queryVehicleIfo(String startTime, String endTime);
+	public List<VehicleInfo> queryVehicleIfo(String status);
 	
-	public Page<VehicleInfo> queryAll();
+	public List<VehicleInfo> queryAll();
 }

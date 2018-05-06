@@ -5,12 +5,11 @@ import java.io.FileNotFoundException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ResourceUtils;
 
@@ -49,13 +48,13 @@ public class VehicleServiceImpl implements IVehicleService {
 	}
 
 	@Override
-	public boolean updateVehicleInfo(VehicleInfo vehicleInfo) {
+	public void updateVehicleInfo(VehicleInfo vehicleInfo) {
+		vehicleInfo.setNoteDate(sf.format(new Date()));
 		vehicleRepository.saveAndFlush(vehicleInfo);
-		return false;
 	}
 
 	@Override
-	public VehicleInfo findByQrCode(String qrPath) {
+	public VehicleInfo findByQrImge(String qrPath) {
 		String qrCode = QRCodeUitl.parseQRCode(qrPath);
 		return vehicleRepository.findByQrCode(qrCode);
 	}
@@ -84,20 +83,18 @@ public class VehicleServiceImpl implements IVehicleService {
 	}
 
 	@Override
-	public Page<VehicleInfo> queryVehicleIfo(String startTime, String endTime) {
-		Pageable pageable = Constants.getPageable(0, "noteDate");
-		Page<VehicleInfo> pageInfo = vehicleRepository.findeViewByStatus(startTime, endTime, "1", pageable);
+	public List<VehicleInfo> queryVehicleIfo(String status) {
+		List<VehicleInfo> pageInfo = vehicleRepository.findeViewByStatus(status);
 		return pageInfo;
 	}
 
 	@Override
-	public Page<VehicleInfo> queryAll() {
-		Pageable pageable = Constants.getPageable(0, "noteDate");
-		return vehicleRepository.findAll(pageable);
+	public List<VehicleInfo> queryAll() {
+		return vehicleRepository.findAll();
 	}
 
 	@Override
-	public VehicleInfo findByQrImg(String qrCode) {
+	public VehicleInfo findByQrCode(String qrCode) {
 		return vehicleRepository.findByQrCode(qrCode);
 	}
 
