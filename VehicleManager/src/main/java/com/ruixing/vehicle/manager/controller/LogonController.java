@@ -27,14 +27,21 @@ public class LogonController {
             return "index";
         } else {
         	model.addAttribute("errorMessage", "用户名或密码错误");
-            return "logon/login";
+            return "login";
         }
     }
 	
 	//登录页面  
     @RequestMapping(value = "/login", method = RequestMethod.GET)  
     public String login(){  
-        return "logon/login";  
+        return "login";  
     }  
+    
+    @RequestMapping(value = "/logout", method = RequestMethod.GET)
+    public String logout(HttpSession session) {
+        // 移除session
+        session.removeAttribute("user");
+        return "redirect:/login";
+    }
 
 }

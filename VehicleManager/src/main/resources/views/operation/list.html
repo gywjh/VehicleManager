@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8" />
+		<title>operation information</title>
+		<link rel="stylesheet" th:href="@{/css/bootstrap.css}"></link>
+		<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"></link>
+		<link rel="stylesheet" th:href="@{/css/bootstrap-responsive.min.css}"></link>
+		<link th:href="@{/assets/styles.css}" rel="stylesheet" media="screen"></link>
+		<link th:href="@{/assets/DT_bootstrap.css}" rel="stylesheet"
+			media="screen"></link>
+		<script th:src="@{/vendors/modernizr-2.6.2-respond-1.1.0.min.js}"></script>
+	</head>
+	<body>
+		<div>
+			<div id="content">
+				<div class="row-fluid">
+					<!-- block -->
+					<div class="block">
+						<div class="navbar navbar-inner block-header">
+							<div class="muted pull-left">操作记录列表</div>
+						</div>
+						<div class="block-content collapse in">
+							<div class="span12">
+								<table cellpadding="0" cellspacing="0" border="0"
+									class="table table-striped table-bordered" id="example">
+									<thead>
+										<tr>
+											<th>#</th>
+											<th>操作人</th>
+											<th>处理地点</th>
+											<th>结果状态</th>
+											<th>记录结果描述</th>
+											<th>记录日期</th>
+											<th></th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr th:each="list : ${opList}">
+											<th scope="row" th:text="1"></th>
+											<td th:text="${list.userName}"></td>
+											<td th:text="${list.operationPlace}"></td>
+											<td th:text="${list.handleResult}"></td>
+											<td th:text="${list.resultMark}"></td>
+											<td th:text="${list.recordDate}"></td>
+											<td>
+												<a th:href="@{/operation/delete(id=${list.id})}">删除</a>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+					<!-- /block -->
+				</div>
+			</div>
+		</div>
+
+		<script th:src="@{/js/jquery-1.9.1.js}"></script>
+		<script th:src="@{/bootstrap/bootstrap/js/bootstrap.min.js}"></script>
+		<script th:src="@{/vendors/datatables/js/jquery.dataTables.min.js}"></script>
+		<script th:src="@{/assets/scripts.js}"></script>
+		<script th:src="@{/assets/DT_bootstrap.js}"></script>
+		<script>
+			$(function() {
+
+			});
+		</script>
+	</body>
+</html>

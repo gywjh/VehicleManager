@@ -1,16 +1,14 @@
 package com.ruixing.vehicle.manager.convoy.dao;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.domain.Specification;
-import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import java.util.List;
+
 import org.springframework.data.repository.Repository;
 
 import com.ruixing.vehicle.manager.domain.ConvoyEndDate;
 import com.ruixing.vehicle.manager.domain.ConvoyInfo;
 import com.ruixing.vehicle.manager.domain.ConvoyStartDate;
 
-public interface ConvoyRepository extends JpaSpecificationExecutor<ConvoyInfo>, Repository<ConvoyInfo, String>{
+public interface ConvoyRepository extends Repository<ConvoyInfo, String>{
 	
 	public void save(ConvoyInfo convoyInfo);
 	
@@ -20,6 +18,6 @@ public interface ConvoyRepository extends JpaSpecificationExecutor<ConvoyInfo>, 
 	
 	public void save(ConvoyEndDate updateConvoy);
 	
-	Page<ConvoyInfo> findAll(Specification<ConvoyInfo> spec, Pageable pageable);
+	List<ConvoyInfo> findAll();
 
 }

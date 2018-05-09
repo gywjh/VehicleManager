@@ -17,9 +17,9 @@
         <menu id="3_2" text="回收站" icon="icon-trash" url="/message/qyeryRyc" auth="0"></menu>
     </menu>
     <menu id="4" text="车辆护送" icon="icon-road" url="" auth="0">
-        <menu id="4_1" text="护送信息" icon="icon-cog" url="" auth="0"></menu>
+        <menu id="4_1" text="护送信息" icon="icon-cog" url="/convoy/find" auth="0"></menu>
     </menu>
     <menu id="5" text="操作记录管理" icon="icon-wrench" url="" auth="0">
-        <menu id="5_1" text="日志查询" icon="icon-cog" url="" auth="0"></menu>
+        <menu id="5_1" text="日志查询" icon="icon-cog" url="/operation/find" auth="0"></menu>
     </menu>
 </root>

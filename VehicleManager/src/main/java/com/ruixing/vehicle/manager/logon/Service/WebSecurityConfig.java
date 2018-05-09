@@ -1,5 +1,7 @@
 package com.ruixing.vehicle.manager.logon.Service;
 
+import java.io.PrintWriter;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -46,9 +48,12 @@ public class WebSecurityConfig extends WebMvcConfigurerAdapter{
             {
             	return true;
             }
-            // 跳转登录
-            String url = "/login";
-            response.sendRedirect(url);
+            PrintWriter out = response.getWriter();  
+            out.println("<html>");      
+            out.println("<script>");      
+            out.println("window.open ('"+request.getContextPath()+"/login','_top')");      
+            out.println("</script>");      
+            out.println("</html>");    
             return false;
         }
     }

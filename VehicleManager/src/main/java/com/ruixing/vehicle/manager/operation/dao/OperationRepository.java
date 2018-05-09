@@ -1,5 +1,7 @@
 package com.ruixing.vehicle.manager.operation.dao;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
@@ -16,4 +18,6 @@ public interface OperationRepository
 	public void delete(String id);
 
 	Page<OperationInfo> findAll(Specification<OperationInfo> spec, Pageable pageable);
+	
+	List<OperationInfo> findAll();
 }

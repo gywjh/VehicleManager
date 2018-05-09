@@ -1,6 +1,7 @@
 package com.ruixing.vehicle.manager.operation.service;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -46,6 +47,11 @@ public class OperationService {
 		Pageable pageable = Constants.getPageable(findRequest.getCurrentPage() + 1, "recodeTime");
 		Specification<OperationInfo> spec = getWhereClause(findRequest);
 		return operRepository.findAll(spec, pageable);
+	}
+	
+	public List<OperationInfo> findAllList()
+	{
+		return operRepository.findAll();
 	}
 
 	private Specification<OperationInfo> getWhereClause(FindOperationRequest findRequest) {

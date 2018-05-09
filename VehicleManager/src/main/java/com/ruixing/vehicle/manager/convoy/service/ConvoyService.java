@@ -1,29 +1,21 @@
 package com.ruixing.vehicle.manager.convoy.service;
 
 import java.util.Date;
+import java.util.List;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
-
-import org.apache.commons.lang.StringUtils;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.domain.Specification;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ruixing.vehicle.manager.convoy.dao.ConvoyRepository;
-import com.ruixing.vehicle.manager.convoy.entity.ConvoyFindRequest;
 import com.ruixing.vehicle.manager.convoy.entity.SaveConvoyRequest;
 import com.ruixing.vehicle.manager.domain.ConvoyEndDate;
 import com.ruixing.vehicle.manager.domain.ConvoyInfo;
 import com.ruixing.vehicle.manager.domain.ConvoyStartDate;
-import com.ruixing.vehicle.manager.utils.Constants;
 
 @Service
 public class ConvoyService {
 
+	@Autowired
 	private ConvoyRepository convoyRepository;
 
 	public void save(SaveConvoyRequest request) {
@@ -68,41 +60,7 @@ public class ConvoyService {
 		}
 	}
 
-	public Page<ConvoyInfo> findAllList(ConvoyFindRequest findRequest) {
-		Pageable pageable = Constants.getPageable(findRequest.getCurrentPage() + 1, "recodeTime");
-		Specification<ConvoyInfo> spec = getWhereClause(findRequest);
-		return convoyRepository.findAll(spec, pageable);
+	public List<ConvoyInfo> findAllList() {
+		return convoyRepository.findAll();
 	}
-
-	private Specification<ConvoyInfo> getWhereClause(ConvoyFindRequest findRequest) {
-		return new Specification<ConvoyInfo>() {
-			@Override
-			public Predicate toPredicate(Root<ConvoyInfo> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
-				Predicate predicate = cb.conjunction();
-				if (null != findRequest) {
-					String name = findRequest.getCarNumber();
-					if (StringUtils.isNotBlank(name)) {
-						predicate.getExpressions()
-								.add(cb.like(root.<String>get("plateNumber"), StringUtils.trim(name)));
-					}
-					String driverName = findRequest.getDriverName();
-					if (StringUtils.isNotBlank(driverName)) {
-						predicate.getExpressions()
-								.add(cb.like(root.<String>get("driverName"), StringUtils.trim(driverName)));
-					}
-					Date startDate = findRequest.getStartDate();
-					if (null != startDate) {
-						predicate.getExpressions()
-								.add(cb.greaterThanOrEqualTo(root.<Date>get("recordDate"), startDate));
-					}
-					Date endDate = findRequest.getEndDate();
-					if (null != endDate) {
-						predicate.getExpressions().add(cb.lessThanOrEqualTo(root.<Date>get("recordDate"), endDate));
-					}
-				}
-				return predicate;
-			}
-		};
-	}
-
 }
