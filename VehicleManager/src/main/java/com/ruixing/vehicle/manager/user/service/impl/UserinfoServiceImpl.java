@@ -31,7 +31,7 @@ public class UserinfoServiceImpl implements IUserinfoService {
 	}
 
 	public void updateUserInfo(UserInfo userInfo) {
-		repository.saveAndFlush(userInfo);
+		repository.save(userInfo);
 	}
 
 	@Override
