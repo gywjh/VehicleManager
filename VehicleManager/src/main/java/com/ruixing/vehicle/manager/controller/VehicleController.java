@@ -16,14 +16,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.ruixing.vehicle.manager.domain.VehicleInfo;
 import com.ruixing.vehicle.manager.utils.PrintUtil;
 import com.ruixing.vehicle.manager.vehicle.service.IVehicleService;
-import com.ruixing.vehicle.manager.vehicle.service.impl.VehicleServiceImpl;
 
 @Controller
 @EnableAutoConfiguration
 @RequestMapping(path = "/vehicle")
 public class VehicleController {
 
-	private Logger logger = LoggerFactory.getLogger(VehicleServiceImpl.class);
+	private Logger logger = LoggerFactory.getLogger(VehicleController.class);
 
 	@Resource
 	private IVehicleService vehicleService;

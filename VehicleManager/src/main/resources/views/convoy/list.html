@@ -43,6 +43,9 @@
 											<th>货物品类</th>
 											<th>载重量</th>
 											<th>记录日期</th>
+											<th>护送开始日期</th>
+											<th>护送结束日期</th>
+											<th>护送状态</th>
 											<th></th>
 										</tr>
 									</thead>
@@ -65,6 +68,14 @@
 											<td th:text="${list.goodsType}"></td>
 											<td th:text="${list.goodsWeight}"></td>
 											<td th:text="${list.recordDate}"></td>
+											<td th:text="${list.startDate}"></td>
+											<td th:text="${list.recordDate}"></td>
+											<div th:switch="${list.convoyStatus}">
+												<td th:case="1" th:text="开始护送"></td>
+												<td th:case="2" th:text="护送结束"></td>
+												<td th:case="*" th:text="未护送"></td>
+											</div>
+											
 											<td>
 												<a th:href="@{/convoy/delete(id=${list.id})}">删除</a>
 											</td>
