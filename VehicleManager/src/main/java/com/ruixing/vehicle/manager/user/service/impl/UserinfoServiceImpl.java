@@ -3,40 +3,39 @@ package com.ruixing.vehicle.manager.user.service.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.ruixing.vehicle.manager.domain.UserInfo;
-import com.ruixing.vehicle.manager.user.dao.IUserInfoDao;
+import com.ruixing.vehicle.manager.user.dao.IUserInfoRepository;
 import com.ruixing.vehicle.manager.user.service.IUserinfoService;
-
+@Service
 public class UserinfoServiceImpl implements IUserinfoService {
 
 	@Autowired
-	private IUserInfoDao dao;
+	private IUserInfoRepository repository;
 
-	public boolean addUserInfo(UserInfo userInfo) {
-		// TODO Auto-generated method stub
-		return false;
+	public void addUserInfo(UserInfo userInfo) {
+		repository.save(userInfo);
 	}
 
-	public boolean delUserInfoById(String userId) {
-		// TODO Auto-generated method stub
-		return false;
+	public void delUserInfoById(Integer id) {
+		repository.delete(id);
 	}
 
 	public List<UserInfo> queryAllUserInfo() {
-		// TODO Auto-generated method stub
-		return null;
+		return repository.findAll();
 	}
 
-	public UserInfo queryUserInfoById(String userId) {
-		// TODO Auto-generated method stub
-		return null;
+	public UserInfo queryUserInfoByUserName(String userName) {
+		return repository.queryUserInfoByUserName(userName);
 	}
 
-	public boolean updateUserInfo(UserInfo userInfo) {
-		// TODO Auto-generated method stub
-		return false;
+	public void updateUserInfo(UserInfo userInfo) {
+		repository.saveAndFlush(userInfo);
 	}
-	
 
+	@Override
+	public UserInfo queryUserInfoById(Integer id) {
+		return repository.queryUserInfoById(id);
+	}
 }

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <root>
 	<menu id="1" text="用户管理" icon="icon-user" url="" auth="0">
-        <menu id="1_1" text="用户注册" icon="icon-cog" url="" auth="0"></menu>
-        <menu id="1_2" text="用户查询" icon="icon-list" url="/user" auth="0"></menu>
+        <menu id="1_1" text="用户注册" icon="icon-cog" url="/user/regist" auth="0"></menu>
+        <menu id="1_2" text="用户查询" icon="icon-list" url="/user/query" auth="0"></menu>
     </menu>
     <menu id="2" text="车辆管理" icon="icon-truck" url="" auth="0">
         <menu id="2_1" text="车辆登记" icon="icon-cog" url="/vehicle/add" auth="0"></menu>

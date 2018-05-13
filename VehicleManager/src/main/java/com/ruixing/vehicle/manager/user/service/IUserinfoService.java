@@ -2,21 +2,20 @@ package com.ruixing.vehicle.manager.user.service;
 
 import java.util.List;
 
-import org.springframework.stereotype.Service;
-
 import com.ruixing.vehicle.manager.domain.UserInfo;
 
-@Service(value = "UserinfoServiceImpl")
 public interface IUserinfoService {
 
 	List<UserInfo> queryAllUserInfo();
 
-	UserInfo queryUserInfoById(String userId);
+	UserInfo queryUserInfoByUserName(String userName);
+	
+	UserInfo queryUserInfoById(Integer id);
 
-	boolean delUserInfoById(String userId);
+	void delUserInfoById(Integer userId);
 
-	boolean addUserInfo(UserInfo userInfo);
+	void addUserInfo(UserInfo userInfo);
 
-	boolean updateUserInfo(UserInfo userInfo);
+	void updateUserInfo(UserInfo userInfo);
 
 }

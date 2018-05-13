@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8" />
+		<title>message information</title>
+		<link rel="stylesheet" th:href="@{/css/bootstrap.css}"></link>
+		<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"></link>
+		<link rel="stylesheet" th:href="@{/css/bootstrap-responsive.min.css}"></link>
+		<link th:href="@{/assets/styles.css}" rel="stylesheet" media="screen"></link>
+		<link th:href="@{/assets/DT_bootstrap.css}" rel="stylesheet"
+			media="screen"></link>
+		<script th:src="@{/vendors/modernizr-2.6.2-respond-1.1.0.min.js}"></script>
+	</head>
+	<body>
+		<div>
+			<div id="content">
+				<div class="row-fluid">
+					<!-- block -->
+					<div class="block">
+						<div class="navbar navbar-inner block-header">
+							<div class="muted pull-left">用户信息列表</div>
+						</div>
+						<div class="block-content collapse in">
+							<div class="span12">
+								<table cellpadding="0" cellspacing="0" border="0"
+									class="table table-striped table-bordered" id="example">
+									<thead>
+										<tr>
+											<th>ID</th>
+											<th>姓名</th>
+											<th>手机号</th>
+											<th>性别</th>
+											<th>身份证号</th>
+											<th>职务</th>
+											<th>警务编号</th>
+											<th>执勤单位名称</th>
+											<th>单位地址</th>
+
+										</tr>
+									</thead>
+									<tbody>
+										<tr th:each="user : ${users}">
+											<th scope="row" th:text="${user.id}"></th>
+											<td th:text="${user.userName}"></td>
+											<td th:text="${user.phoneId}"></td>
+											<td th:text="${user.sex}"></td>
+											<td th:text="${user.idCard}"></td>
+											<td th:text="${user.title}"></td>
+											<td th:text="${user.policeOfficer}"></td>
+											<td th:text="${user.organizationName}"></td>
+											<td th:text="${user.address}"></td>
+											<td>
+												<a th:href="@{/user/edit(id=${user.id})}">编辑</a>
+											</td>
+											<td>
+												<a th:href="@{/user/delete(id=${user.id})}">删除</a>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+					<!-- /block -->
+				</div>
+			</div>
+		</div>
+
+		<script th:src="@{/js/jquery-1.9.1.js}"></script>
+		<script th:src="@{/bootstrap/bootstrap/js/bootstrap.min.js}"></script>
+		<script th:src="@{/vendors/datatables/js/jquery.dataTables.min.js}"></script>
+		<script th:src="@{/assets/scripts.js}"></script>
+		<script th:src="@{/assets/DT_bootstrap.js}"></script>
+		<script>
+			$(function() {
+
+			});
+		</script>
+	</body>
+</html>
