@@ -30,9 +30,13 @@ public class UserController {
 	private IUserinfoService service;
 
 	@RequestMapping(path = "/add", method = RequestMethod.POST)
-	public String addUser(UserInfo userInfo) {
-		service.addUserInfo(userInfo);
-		return "redirect:/user/query";
+	public String addUser(Model model,UserInfo userInfo) {
+		if (service.addUserInfo(userInfo))
+		{
+			return "redirect:/user/query";
+		}
+		model.addAttribute("errorMessage", "用户名已存在");
+		return "/user/userAdd";
 	}
 	
 	@RequestMapping(path = "/regist", method = RequestMethod.GET)
@@ -42,8 +46,12 @@ public class UserController {
 
 	@RequestMapping(path = "/update", method = RequestMethod.POST)
 	public String updateUser(Model model, UserInfo userInfo) {
-		service.updateUserInfo(userInfo);
-		return "redirect:/user/query";
+		if(service.updateUserInfo(userInfo))
+		{
+			return "redirect:/user/query";
+		}
+		model.addAttribute("errorMessage", "用户名称已被注册");
+		return "user/userUpdate";
 	}
 	
 	@RequestMapping(path = "/edit", method = RequestMethod.GET)

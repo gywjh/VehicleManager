@@ -14,8 +14,8 @@ public interface IUserinfoService {
 
 	void delUserInfoById(Integer userId);
 
-	void addUserInfo(UserInfo userInfo);
+	boolean addUserInfo(UserInfo userInfo);
 
-	void updateUserInfo(UserInfo userInfo);
+	boolean updateUserInfo(UserInfo userInfo);
 
 }

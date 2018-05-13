@@ -14,8 +14,13 @@ public class UserinfoServiceImpl implements IUserinfoService {
 	@Autowired
 	private IUserInfoRepository repository;
 
-	public void addUserInfo(UserInfo userInfo) {
+	public boolean addUserInfo(UserInfo userInfo) {
+		if(null != repository.queryUserInfoByUserName(userInfo.getUserName()))
+		{
+			return false;
+		}
 		repository.save(userInfo);
+		return true;
 	}
 
 	public void delUserInfoById(Integer id) {
@@ -30,8 +35,14 @@ public class UserinfoServiceImpl implements IUserinfoService {
 		return repository.queryUserInfoByUserName(userName);
 	}
 
-	public void updateUserInfo(UserInfo userInfo) {
+	public boolean updateUserInfo(UserInfo userInfo) {
+		UserInfo user = repository.queryUserInfoByUserName(userInfo.getUserName());
+		if (!user.getId().equals(userInfo.getId()))
+		{
+			return false;
+		}
 		repository.save(userInfo);
+		return true;
 	}
 
 	@Override

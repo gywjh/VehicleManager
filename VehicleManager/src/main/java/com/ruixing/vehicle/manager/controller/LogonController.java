@@ -9,8 +9,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.ruixing.vehicle.manager.domain.UserInfo;
 import com.ruixing.vehicle.manager.logon.Service.LogonService;
-import com.ruixing.vehicle.manager.logon.entity.UserEntity;
 
 @Controller
 @EnableAutoConfiguration
@@ -21,7 +21,7 @@ public class LogonController {
 	
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
     public String loginVerify(Model model, String username,String password,HttpSession session){
-        UserEntity user = logonService.verifyLogin(username, password);
+        UserInfo user = logonService.verifyLogin(username, password);
         if (null != user) {
             session.setAttribute("user", user);
             return "index";

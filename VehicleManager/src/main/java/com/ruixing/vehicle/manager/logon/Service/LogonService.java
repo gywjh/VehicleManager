@@ -1,21 +1,26 @@
 package com.ruixing.vehicle.manager.logon.Service;
 
+import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ruixing.vehicle.manager.logon.entity.UserEntity;
+import com.ruixing.vehicle.manager.domain.UserInfo;
+import com.ruixing.vehicle.manager.user.dao.IUserInfoRepository;
 
 @Service
 public class LogonService {
 	
-	public UserEntity verifyLogin(String name, String password)
+	@Autowired
+	private IUserInfoRepository repository;
+	
+	public UserInfo verifyLogin(String userName, String password)
 	{
-		//通过用户名和密码查询数据库，并进行判断
-		UserEntity user = new UserEntity();
-		user.setPhoneNumber("123");
-		user.setRoleId("0");
-		user.setUserId("11111");
-		user.setUserName("admin");
-		return user;
+		UserInfo user = repository.queryUserInfoByUserName(userName);
+		if (StringUtils.equals(password, user.getPassword()))
+		{
+			return user;
+		}
+		return null;
 	}
 
 }
