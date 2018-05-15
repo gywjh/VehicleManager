@@ -2,8 +2,11 @@ package com.ruixing.vehicle.manager.vehicle.service.impl;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -15,7 +18,9 @@ import org.springframework.util.ResourceUtils;
 
 import com.ruixing.vehicle.manager.domain.VehicleInfo;
 import com.ruixing.vehicle.manager.utils.Constants;
+import com.ruixing.vehicle.manager.utils.ExcelUtil;
 import com.ruixing.vehicle.manager.utils.QRCodeUitl;
+import com.ruixing.vehicle.manager.utils.SheetResult;
 import com.ruixing.vehicle.manager.vehicle.dao.VehicleRepository;
 import com.ruixing.vehicle.manager.vehicle.service.IVehicleService;
 
@@ -78,8 +83,43 @@ public class VehicleServiceImpl implements IVehicleService {
 
 	@Override
 	public String exprotVehicleInfo() {
-
-		return null;
+	
+		List<VehicleInfo> vehicleInfoList  = vehicleRepository.findAll();
+		List<List<String>> excleResult = new ArrayList<List<String>>(vehicleInfoList.size()+1);
+		excleResult.add(Arrays.asList(Constants.header));
+		List<String> data = null;
+		for(VehicleInfo vehicleInfo :vehicleInfoList)
+		{
+			data = new ArrayList<String>(Constants.header.length);
+			data.add(vehicleInfo.getChpNo());
+			data.add(vehicleInfo.getChpColor());
+			data.add(vehicleInfo.getDriverOwner());
+			data.add(vehicleInfo.getDriverName());
+			data.add(vehicleInfo.getDriverSex());
+			data.add(vehicleInfo.getDriverID());
+			data.add(vehicleInfo.getDriverType());
+			data.add(vehicleInfo.getDriverCompany());
+			data.add(vehicleInfo.getSupercargoName());
+			data.add(vehicleInfo.getSupercargoSex());
+			data.add(vehicleInfo.getSupercargoID());
+			data.add(vehicleInfo.getSupercargoType());
+			data.add(vehicleInfo.getSupercargoCompany());
+			data.add(vehicleInfo.getFreightCategory());
+			data.add(String.valueOf(vehicleInfo.getFreightCapacity()));
+			data.add(vehicleInfo.getNoteDate());
+			excleResult.add(data);
+		}
+		SheetResult sheetResult = new SheetResult();
+		sheetResult.setHeadRowNum(1);
+		sheetResult.setDataList(excleResult);
+		String fileName = System.currentTimeMillis()+".xlsx";
+		
+		try {
+			ExcelUtil.writeDataToExcel(ExcelUtil.createWorkBook(ExcelUtil.XLSX), "车辆信息",System.getProperty("user.dir")+Constants.EXCLE_TEMP_PATH +fileName , sheetResult);
+		} catch (IOException e) {
+			logger.error(e.getMessage(), e);
+		}
+		return fileName;
 	}
 
 	@Override

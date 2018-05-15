@@ -95,12 +95,20 @@
     <dependency>  
         <groupId>com.google.code.gson</groupId>  
         <artifactId>gson</artifactId>  
-    </dependency>  
+    </dependency> 
+    <!-- https://mvnrepository.com/artifact/org.apache.mina/mina-core -->
+		<dependency>
+			<groupId>org.apache.mina</groupId>
+			<artifactId>mina-core</artifactId>
+			<version>3.0.0-M2</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.jboss.netty/netty -->
+		<dependency>
+			<groupId>org.jboss.netty</groupId>
+			<artifactId>netty</artifactId>
+			<version>3.2.10.Final</version>
+		</dependency>
 	</dependencies>
-
-	<!-- <build> <plugins> <plugin> <groupId>org.springframework.boot</groupId> 
-		<artifactId>spring-boot-maven-plugin</artifactId> </plugin> </plugins> </build> -->
-
 	<build>
 		<!-- springboot是项目名称 -->
 		<finalName>springboot</finalName>
