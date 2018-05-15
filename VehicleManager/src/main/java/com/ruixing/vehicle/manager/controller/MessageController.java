@@ -90,7 +90,7 @@ public class MessageController {
 	public String updateOneMessage(int id) {
 		MessageInfo message = messageRepository.findById(id);
 		message.setMessageState(false);
-		message.setRecordTime(new Date());
+//		message.setRecordTime(new Date());
 		messageRepository.saveAndFlush(message);
 		return "redirect:/message/query";
 	}
@@ -113,7 +113,7 @@ public class MessageController {
 	public String updateMessage(Model model, int id) {
 		MessageInfo message = messageRepository.findById(id);
 		message.setMessageState(true);
-		message.setRecordTime(new Date());
+//		message.setRecordTime(new Date());
 		messageRepository.saveAndFlush(message);
 		return "redirect:/message/qyeryRyc";
 	}

@@ -19,7 +19,7 @@ public class MessageInfo {
 	@GeneratedValue
 	private Integer id;
 
-	@Column(name = "message_info")
+	@Column(name = "message_info", length = 200)
 	private String messageContent;
 
 	@Column(name = "record_time")
@@ -27,7 +27,7 @@ public class MessageInfo {
 
 	@Column(name = "message_statu")
 	private Boolean messageState;
-
+	
 	public MessageInfo() {
 		super();
 	}
