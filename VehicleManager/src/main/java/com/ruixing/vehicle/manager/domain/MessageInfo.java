@@ -28,16 +28,24 @@ public class MessageInfo {
 	@Column(name = "message_statu")
 	private Boolean messageState;
 	
+	@Column(name = "success_list", length = 200)
+	private String successList;
+	
+	@Column(name = "fail_list", length = 200)
+	private String failList;
+	
 	public MessageInfo() {
 		super();
 	}
 
-	public MessageInfo(Integer id, String messageContent, Date recordTime, Boolean messageState) {
+	public MessageInfo(Integer id, String messageContent, Date recordTime, Boolean messageState,String successList, String failList) {
 		super();
 		this.id = id;
 		this.messageContent = messageContent;
 		this.recordTime = recordTime;
 		this.messageState = messageState;
+		this.successList = successList;
+		this.failList = failList;
 	}
 
 	public Integer getId() {
@@ -70,6 +78,22 @@ public class MessageInfo {
 
 	public void setMessageState(Boolean messageState) {
 		this.messageState = messageState;
+	}
+
+	public String getSuccessList() {
+		return successList;
+	}
+
+	public void setSuccessList(String successList) {
+		this.successList = successList;
+	}
+
+	public String getFailList() {
+		return failList;
+	}
+
+	public void setFailList(String failList) {
+		this.failList = failList;
 	}
 
 }

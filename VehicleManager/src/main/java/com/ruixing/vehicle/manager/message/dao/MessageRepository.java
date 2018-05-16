@@ -15,11 +15,11 @@ public interface MessageRepository extends JpaRepository<MessageInfo, Integer> {
 	public MessageInfo findById(Integer id);
 	
 	
-	@Query("select new MessageInfo(c.id as id,c.messageContent as messageContent,c.recordTime as recordTime, c.messageState as messageState) from MessageInfo c where c.messageState=?1 ")
+	@Query("select new MessageInfo(c.id as id,c.messageContent as messageContent,c.recordTime as recordTime, c.messageState as messageState, c.successList as successList, c.failList as failList) from MessageInfo c where c.messageState=?1 ")
 	public List<MessageInfo> findAllByMessageState(Boolean messageState);
 	
 	
-	@Query("select new MessageInfo(c.id as id,c.messageContent as messageContent,c.recordTime as recordTime, c.messageState as messageState) from MessageInfo c where c.messageState=?1 ")
+	@Query("select new MessageInfo(c.id as id,c.messageContent as messageContent,c.recordTime as recordTime, c.messageState as messageState, c.successList as successList, c.failList as failList) from MessageInfo c where c.messageState=?1 ")
 	public Page<MessageInfo> findViewByMessageState(Boolean messageState,Pageable pageable);
 
 	/**
@@ -29,7 +29,7 @@ public interface MessageRepository extends JpaRepository<MessageInfo, Integer> {
 	 * @param pageable
 	 * @return
 	 */
-	@Query("select new MessageInfo(c.id as id,c.messageContent as messageContent,c.recordTime as recordTime, c.messageState as messageState) from MessageInfo c where c.recordTime>?1 and c.recordTime<?2  and c.messageState=?3")
+	@Query("select new MessageInfo(c.id as id,c.messageContent as messageContent,c.recordTime as recordTime, c.messageState as messageState, c.successList as successList, c.failList as failList) from MessageInfo c where c.recordTime>?1 and c.recordTime<?2  and c.messageState=?3")
 	public Page<MessageInfo> findByRecordTime(Date startTime,Date endTime,Boolean messageState,Pageable pageable);
 	
 	/**

@@ -1,6 +1,9 @@
 package com.ruixing.vehicle.manager.user.dao;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import com.ruixing.vehicle.manager.domain.UserInfo;
@@ -11,4 +14,7 @@ public interface IUserInfoRepository extends JpaRepository<UserInfo, Integer> {
 	UserInfo queryUserInfoByUserName(String userName);
 
 	UserInfo queryUserInfoById(Integer id);
+	
+	@Query(value = "select phone_id from users", nativeQuery = true)
+	List<String> queryPhoneNumber();
 }

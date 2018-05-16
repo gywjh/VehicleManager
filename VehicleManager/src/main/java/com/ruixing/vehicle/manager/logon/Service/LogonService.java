@@ -16,9 +16,12 @@ public class LogonService {
 	public UserInfo verifyLogin(String userName, String password)
 	{
 		UserInfo user = repository.queryUserInfoByUserName(userName);
-		if (StringUtils.equals(password, user.getPassword()))
+		if(null != user)
 		{
-			return user;
+			if (StringUtils.equals(password, user.getPassword()))
+			{
+				return user;
+			}
 		}
 		return null;
 	}

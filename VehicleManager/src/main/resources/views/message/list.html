@@ -28,9 +28,9 @@
 										<tr>
 											<th style="display:none">#</th>
 											<th>短信内容</th>
+											<th>成功列表</th>
+											<th>失败列表</th>
 											<th>记录时间</th>
-											<th>扩展1</th>
-											<th>扩展2</th>
 											<th>操作</th>
 										</tr>
 									</thead>
@@ -38,11 +38,11 @@
 										<tr class="odd gradeX" th:each="message : ${messages}">
 											<th style="display:none" scope="row" th:text="${message.id}"></th>
 											<td th:text="${message.messageContent}"></td>
+											<td th:text="${message.successList}"></td>
+											<td th:text="${message.failList}"></td>
 											<td
 												th:text="${#dates.format(message.recordTime,'yyyy-MM-dd hh:mm:ss')}"
 												th:if="${message.recordTime!='n/a'}"></td>
-											<td th:text="${message.messageContent}"></td>
-											<td th:text="${message.messageContent}"></td>
 											<td><a th:href="@{/message/deleteOne(id=${message.id})}">删除</a></td>
 										</tr>
 									</tbody>
