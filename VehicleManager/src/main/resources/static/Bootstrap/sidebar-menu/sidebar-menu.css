@@ -251,15 +251,15 @@ body {
         }
 
         .ace-nav > li.light-blue > a {
-            background-color: #62a8d1;
+            background-color: #044599;
         }
 
             .ace-nav > li.light-blue > a:hover, .ace-nav > li.light-blue > a:focus {
-                background-color: #579ec8;
+                background-color: #044599;
             }
 
         .ace-nav > li.open.light-blue > a {
-            background-color: #579ec8 !important;
+            background-color: #044599 !important;
         }
 
         .ace-nav > li.light-blue2 > a {
@@ -1920,7 +1920,7 @@ li [class^="icon-"], li [class*=" icon-"], .nav-list li [class^="icon-"], .nav-l
         font-weight: bold;
         text-transform: uppercase;
        
-        background-color: #6fb3e0;
+        background-color: #044599;
         color: #f3f3f3;
         -webkit-box-sizing: content-box;
         -moz-box-sizing: content-box;
@@ -1935,7 +1935,7 @@ li [class^="icon-"], li [class*=" icon-"], .nav-list li [class^="icon-"], .nav-l
             /*border-top: 1px solid #87b87f;
             border-bottom: 1px solid #6fb3e0;*/
             height: 2px;
-            width: 24px;
+            width: 64px;
             content: "";
             position: absolute;
             z-index: 11;

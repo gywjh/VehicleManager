@@ -98,6 +98,10 @@ body {
 	margin: 1em 0em;
 	border-top: none;
 }
+.navbar-inner block-header
+{
+background-color: #044599;
+}
 
 .block-content {
 	margin: 1em;
@@ -111,7 +115,9 @@ body {
 	-webkit-border-radius: 0px;
 	-moz-border-radius: 0px;
 	border-radius: 0px;
+	background-color: #044599;
 }
+
 .block-header div {
 	padding-top: 10px;
 }

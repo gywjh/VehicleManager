@@ -23,8 +23,11 @@ public class BusiHandler extends SimpleChannelHandler {
 			System.out.println("主链路连接保持请求消息。");
 			heartBeat(msg, ctx, e);
 			break;
+		case 0x1202:
+			//上报车辆位置
 		case 0x9001:
-			System.out.println("从链路连接应答消息");
+			collectVehicleInfo(msg, ctx, e);
+			
 		default:
 			break;
 		}

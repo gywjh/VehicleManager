@@ -1,53 +1,62 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-<meta charset="UTF-8" />
-<title>登陆页面</title>
-<link rel="stylesheet" th:href="@{/css/bootstrap.css}"></link>
-<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"></link>
-<link rel="stylesheet" th:href="@{/css/bootstrap-responsive.min.css}"></link>
-<link th:href="@{/assets/styles.css}" rel="stylesheet" media="screen"></link>
-<link th:href="@{/assets/DT_bootstrap.css}" rel="stylesheet"
-	media="screen"></link>
-<script th:src="@{/vendors/modernizr-2.6.2-respond-1.1.0.min.js}"></script>
-<script>
-	function r() {
-		var username = document.getElementById("username");
-		var pass = document.getElementById("password");
-		if (username.value == "") {
+	<head>
+		<meta charset="UTF-8" />
+		<title>危化品运输车辆动态管理平台</title>
+		<script th:src="@{/js/jquery-1.9.1.js}"></script>
+		<link rel="stylesheet" th:href="@{/css/login_css.css}"></link>
+		<script>
+			function r() {
+			var username =
+			document.getElementById("username");
+			var pass =
+			document.getElementById("password");
+			if (username.value == "") {
 			alert("请输入用户名");
 			username.focus();
-			return false;
-		}
-		if (pass.value == "") {
+			return
+			false;
+			}
+			if (pass.value == "") {
 			alert("请输入密码");
 			pass.focus();
 			return false;
-		}
-		return true;
-	}
-</script>
-</head>
-<body>
-	<form action="#" th:action="@{/login}" th:method="post" onsubmit="return r()">
-		<div style="width:50%">
-			<input type="text" class="form-control" id="username" name="username"
-				placeholder="用户名" maxlength="50" />
-		</div>
-		<div style="width:50%">
-			<input type="password" class="form-control" placeholder="密码"
-				id="password" name="password" maxlength="100" /> <span class="help-block"
-				style="color: red" th:if="${errorMessage}">用户名或密码错误</span>
-		</div>
-		<div>
-			<button type="submit" class="btn btn-default submit">登陆</button>
-		</div>
-	</form>
+			}
+			return true;
+			}
+		</script>
+	</head>
+	<body>
 
-	<script th:src="@{/js/jquery-1.9.1.js}"></script>
-	<script th:src="@{/bootstrap/bootstrap/js/bootstrap.min.js}"></script>
-	<script th:src="@{/vendors/datatables/js/jquery.dataTables.min.js}"></script>
-	<script th:src="@{/assets/scripts.js}"></script>
-	<script th:src="@{/assets/DT_bootstrap.js}"></script>
-</body>
+		<div id="login_center">
+			<div id="login_area">
+				<div id="login_box">
+					<div id="login_form">
+						<form id="submitForm" action="#" th:action="@{/login}"
+							th:method="post" onsubmit="return r()">
+							<div id="login_tip">
+								<span id="login_err" class="sty_txt2"></span>
+							</div>
+							<div>
+								用户名：
+								<input type="text" class="username" id="username" name="username" />
+							</div>
+							<div>
+								密&nbsp;&nbsp;&nbsp;&nbsp;码：
+								<input type="password" id="password" name="password"
+									class="pwd" />
+							</div>
+							<div style="margin : 10px 0px 15px 65px;"><span class="help-block" style="color: red" th:if="${errorMessage}">用户名或密码错误</span></div>
+							<div id="btn_area">
+								<input type="submit" class="login_btn" id="login_sub"
+									value="登  录" />
+								<input type="reset" class="login_btn" id="login_ret"
+									value="重 置" />
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
 </html>

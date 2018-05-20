@@ -2,108 +2,167 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 	<head>
 		<meta charset="UTF-8" />
-		<title>vehicle upate</title>
-		<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"></link>
-		<link rel="stylesheet" th:href="@{/css/bootstrap-responsive.min.css}"></link>
-		<link th:href="@{/assets/styles.css}" rel="stylesheet" media="screen"></link>
-		<script th:src="@{/vendors/modernizr-2.6.2-respond-1.1.0.min.js}"></script>
+		<title>user ADD</title>
+		<link th:href="@{/assets/css/dpl-min.css}" rel="stylesheet" type="text/css" />
+		<link th:href="@{/assets/css/bui-min.css}" rel="stylesheet" type="text/css" />
+		<link th:href="@{/assets/css/page-min.css}" rel="stylesheet"
+			type="text/css" />
+		<link th:href="@{/assets/css/prettify.css}" rel="stylesheet"
+			type="text/css" />
+		<style type="text/css">
+			code {
+			padding: 0px 4px;
+			color: #d14;
+			background-color: #f7f7f9;
+			border: 1px solid #e1e1e8;
+			}
+		</style>
 	</head>
 	<body class="container">
-		<div class="container-fluid">
-			<div class="span10" id="content">
-				<!-- morris stacked chart -->
-				<div class="row-fluid">
-					<!-- block -->
-					<div class="block">
-						<div class="navbar navbar-inner block-header">
-							<div class="muted pull-left">用户信息修改</div>
+		<div class="container">
+		 <div id="top_nav">
+	 	<span id="here_area" style="top: 10px;height: 58px;line-height: 70px;color: #8A8A8A;font-size: 14px;border-bottom: 1px solid #EDEDED;
+}">当前位置：用戶管理&nbsp;>&nbsp;用戶编辑</span>
+		</div>
+			<div class="row">
+				<form id="J_Form" class="form-horizontal span24" style="border-style: solid; border-width: 2px;" th:action="@{/user/update}"  method="post" th:object="${user}">
+				<legend style="margin-bottom:10px;background-color: #044599;color:#FFFFFF">用户信息</legend>
+					<div class="row">
+						<div class="control-group span8">
+							<label class="control-label">
+								<s>*</s>
+								姓名：
+							</label>
+							<div class="controls">
+								<input name="userName" type="text" data-rules="{required:true}"
+									class="input-normal control-text" th:value="*{userName}"/>
+							</div>
 						</div>
-						<div class="block-content collapse in">
-							<div class="span12">
-								<form class="form-horizontal" th:action="@{/user/update}"  method="post" th:object="${user}">
-									<fieldset>
-										<legend style="margin-bottom:5px">用户信息</legend>
-										<div class="control-group success">
-											<input type="hidden" id="id" name="id" th:value="*{id}"/>
-											<label class="control-label" for="driverName">姓名</label>
-											<div class="controls">
-												<input type="text" id="userName" name="userName" th:value="*{userName}"/>
-											</div>
-											<label class="control-label" for="password">密码</label>
-											<div class="controls">
-												<input type="text" id="password" name="password" th:value="*{password}"/>
-											</div>
-											<label class="control-label" for="phoneId">手机号码</label>
-											<div class="controls">
-												<input type="text" id="phoneId" name="phoneId" th:value="*{phoneId}"/>
-											</div>
-											<label class="control-label" for="userSex">性别</label>
-											<div class="controls">
-												<select id="userSex" name="sex" th:value="*{sex}">
-													<option>男</option>
-													<option>女</option>
-												</select>
-											</div>
-											<label class="control-label" for="idCard">身份证号码</label>
-											<div class="controls">
-												<input type="text" id="idCard" name="idCard" th:value="*{idCard}"/>
-											</div>
-											
-											<label class="control-label" for="title">职务</label>
-											<div class="controls">
-												<input type="text" id="title" name="title" th:value="*{title}"/>
-											</div>
-											<label class="control-label" for="policeOfficer">警务编号</label>
-											<div class="controls">
-												<input type="text" id="policeOfficer" name="policeOfficer" th:value="*{policeOfficer}"/>
-											</div>
-											<label class="control-label" for="organizationName">单位名称</label>
-											<div class="controls">
-												<input type="text" id="organizationName" name="organizationName" th:value="*{organizationName}"/>
-											</div>
-											<label class="control-label" for="address">单位地址</label>
-											<div class="controls">
-												<input type="text" id="address" name="address" th:value="*{address}"/>
-											</div>
-											<label class="control-label" for="role">角色</label>
-											<div class="controls">
-												<select id="role" name="role" th:value="*{role}">
-													<option>管理员</option>
-													<option>操作员</option>
-												</select>
-											</div>
-											
-											<div class="form-actions">
-											<button type="submit" class="btn btn-primary">修改</button>
-											<button type="reset" class="btn">重置</button>
-										</div>
-										</div>
-									</fieldset>
-								</form>
+						<div class="control-group span8">
+							<label class="control-label">
+								<s>*</s>
+								密码：
+							</label>
+							<div class="controls">
+								<input name="password" type="text" data-rules="{required:true}"
+									class="input-normal control-text" th:value="*{password}" />
+							</div>
+						</div>
+						<div class="control-group span8">
+							<label class="control-label">
+								<s>*</s>
+								手机号码：
+							</label>
+							<div class="controls">
+								<input name="phoneId" type="text" data-rules="{required:true}"
+									class="input-normal control-text" th:value="*{phoneId}"/>
+							</div>
+						</div>
+						<div class="control-group span8">
+							<label class="control-label">
+								<s>*</s>
+								性别：
+							</label>
+							<div class="controls">
+								<select data-rules="{required:true}" name="sex" class="input-normal" th:value="*{sex}">
+									<option value="">请选择</option>
+									<option value="男">男</option>
+									<option value="女">女</option>
+								</select>
+							</div>
+						</div>
+						<div class="control-group span8">
+							<label class="control-label">
+								<s>*</s>
+								身份证号：
+							</label>
+							<div class="controls">
+								<input name="idCard" type="text" data-rules="{required:true}"
+									class="input-normal control-text" th:value="*{idCard}"/>
+							</div>
+						</div>
+						<div class="control-group span8">
+							<label class="control-label">
+								<s>*</s>
+								职务：
+							</label>
+							<div class="controls">
+								<input name="title" type="text" data-rules="{required:true}"
+									class="input-normal control-text" th:value="*{title}"/>
+							</div>
+						</div>
+						<div class="control-group span8">
+							<label class="control-label">
+								<s>*</s>
+								警务编号：
+							</label>
+							<div class="controls">
+								<input name="policeOfficer" type="text" data-rules="{required:true}"
+									class="input-normal control-text" th:value="*{policeOfficer}"/>
+							</div>
+						</div>
+						<div class="control-group span8">
+							<label class="control-label">
+								<s>*</s>
+								单位名称：
+							</label>
+							<div class="controls">
+								<input name="organizationName" type="text" data-rules="{required:true}"
+									class="input-normal control-text" th:value="*{organizationName}"/>
+							</div>
+						</div>
+						<div class="control-group span8">
+							<label class="control-label">
+								<s>*</s>
+								单位地址：
+							</label>
+							<div class="controls">
+								<input name="address" type="text" data-rules="{required:true}"
+									class="input-normal control-text" th:value="*{address}"/>
+							</div>
+						</div>
+						<div class="control-group span8">
+							<label class="control-label">
+								<s>*</s>
+								角色：
+							</label>
+							<div class="controls">
+								<select data-rules="{required:true}" name="role" class="input-normal" th:value="*{role}">
+									<option value="">请选择</option>
+									<option value="管理员">管理员</option>
+									<option value="操作员">操作员</option>
+								</select>
 							</div>
 						</div>
 					</div>
-				</div>
+					<div class="row form-actions actions-bar" style="margin-left:0px">
+						<div class="span13 offset3 ">
+							<button type="submit" class="button button-primary">修改</button>
+							<button type="reset" class="button">重置</button>
+						</div>
+					</div>
+				</form>
 			</div>
 		</div>
-		<!--/.fluid-container -->
-		<link th:href="@{/vendors/datepicker.css}" rel="stylesheet"
-			media="screen"></link>
-		<link th:href="@{/vendors/uniform.default.css}" rel="stylesheet"
-			media="screen"></link>
-		<link th:href="@{/vendors/chosen.min.css}" rel="stylesheet"
-			media="screen"></link>
-		<link th:href="@{/vendors/wysiwyg/bootstrap-wysihtml5.css}" rel="stylesheet"
-			media="screen"></link>
-		<script th:src="@{/vendors/jquery-1.9.1.js}"></script>
-		<script th:src="@{/bootstrap/bootstrap/js/bootstrap.min.js}"></script>
-		<script th:src="@{/vendors/jquery.uniform.min.js}"></script>
-		<script th:src="@{/vendors/chosen.jquery.min.js}"></script>
-		<script th:src="@{/vendors/bootstrap-datepicker.js}"></script>
-		<script th:src="@{/vendors/wysiwyg/wysihtml5-0.3.0.js}"></script>
-		<script th:src="@{/vendors/wysiwyg/bootstrap-wysihtml5.js}"></script>
-		<script th:src="@{/vendors/wizard/jquery.bootstrap.wizard.min.js}"></script>
-		<script th:src="@{/assets/scripts.js}"></script>
-		
+		<script th:src="@{/assets/js/jquery-1.8.1.min.js}"></script>
+		<script type="text/javascript" th:src="@{/assets/js/bui-min.js}"></script>
+		<script type="text/javascript" th:src="@{/assets/js/config-min.js}"></script>
+		<script type="text/javascript" th:src="@{/assets/js/prettify.js}"></script>
+		<script type="text/javascript">
+			$(function () {
+			prettyPrint();
+			});
+		</script>
+		<script type="text/javascript">
+			BUI.use('bui/form',function (Form) {
+			var form = new
+			Form.HForm({
+			srcNode : '#J_Form'
+			});
+
+			form.render();
+			});
+		</script>
+
 	</body>
 </html>
