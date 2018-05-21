@@ -28,6 +28,16 @@
 				<form id="J_Form" class="form-horizontal span24" style="border-style: solid; border-width: 2px;" th:action="@{/user/update}"  method="post" th:object="${user}">
 				<legend style="margin-bottom:10px;background-color: #044599;color:#FFFFFF">用户信息</legend>
 					<div class="row">
+						<div class="control-group span8" style="display:none">
+							<label class="control-label">
+								<s>*</s>
+								id：
+							</label>
+							<div class="controls">
+								<input name="id" data-rules="{required:true}"
+									class="input-normal control-text" th:value="*{id}"/>
+							</div>
+						</div>
 						<div class="control-group span8">
 							<label class="control-label">
 								<s>*</s>
