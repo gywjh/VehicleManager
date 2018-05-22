@@ -20,10 +20,6 @@
 	</head>
 	<body class="container">
 		<div class="container">
-		 <div id="top_nav">
-	 	<span id="here_area" style="top: 10px;height: 58px;line-height: 70px;color: #8A8A8A;font-size: 14px;border-bottom: 1px solid #EDEDED;
-}">当前位置：用戶管理&nbsp;>&nbsp;用戶编辑</span>
-		</div>
 			<div class="row">
 				<form id="J_Form" class="form-horizontal span24" style="border-style: solid; border-width: 2px;" th:action="@{/user/update}"  method="post" th:object="${user}">
 				<legend style="margin-bottom:10px;background-color: #044599;color:#FFFFFF">用户信息</legend>
@@ -145,8 +141,8 @@
 							</div>
 						</div>
 					</div>
-					<div class="row form-actions actions-bar" style="margin-left:0px">
-						<div class="span13 offset3 ">
+					<div class="row form-actions actions-bar" style="text-align: center; width: 100%; height: 100%; margin: 0px; padding: 20px 0px;">
+						<div class="span13" style="width:100%;">
 							<button type="submit" class="button button-primary">修改</button>
 							<button type="reset" class="button">重置</button>
 						</div>
@@ -160,6 +156,7 @@
 		<script type="text/javascript" th:src="@{/assets/js/prettify.js}"></script>
 		<script type="text/javascript">
 			$(function () {
+				parent.$("#subMenu").text("用户修改")；
 			prettyPrint();
 			});
 		</script>

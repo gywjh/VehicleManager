@@ -29,7 +29,7 @@
         }
         //加入TABS
         $(".nav-tabs").append(title);
-        $(".tab-content").append(content);
+        $(".page-content").html(content);
     }else{
 		if(active_flag){
 			$("#iframe_" + id).attr('src', $("#iframe_" + id).attr('src'));

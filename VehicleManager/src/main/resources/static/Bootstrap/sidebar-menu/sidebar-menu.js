@@ -41,16 +41,25 @@
                     li.append(menus);
                 }
                 else {
-                    var href = 'javascript:addTabs({id:\'' + item.id + '\',title: \'' + item.text + '\',close: true,url: \'' + item.url + '\'});';
-                    a.attr('href', href);
+                    //var href = 'javascript:addTabs({id:\'' + item.id + '\',title: \'' + item.text + '\',close: true,url: \'' + item.url + '\'});';
+                    a.attr('href', item.url);
+                    a.attr('target','tab-content')
                     //if (item.istab)
                     //    a.attr('href', href);
                     //else {
-                    //    a.attr('href', item.url);
-                    //    a.attr('title', item.text);
-                    //    a.attr('target', '_blank')
+                        a.attr('href', item.url);
+                        a.attr('title', item.text);
+                        a.attr('target', 'frmright')
                     //}
                     li.append(a);
+                    li.addClass("subli");
+                    li.on("click",function(){
+                    	var submenu=$(this).find("span").text();
+                    	var parentmenu=$(this).parent("ul").siblings().find("span").text();
+                    	$("#parentMenu").text(parentmenu);
+                    	$("#subMenu").text(submenu);
+                    	$("#shouye").hide().siblings().show();
+                    });
                 }
                 target.append(li);
             });
