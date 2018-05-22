@@ -134,7 +134,6 @@ public class MessageController {
 		for (int i = 1; i < 21; i++) {
 			messageInfo = new MessageInfo();
 			messageInfo.setId(i);
-			messageInfo.setMessageContent("Test content " + i);
 			messageInfo.setMessageState(true);
 			cal.add(Calendar.DATE, -i);
 			date = cal.getTime();

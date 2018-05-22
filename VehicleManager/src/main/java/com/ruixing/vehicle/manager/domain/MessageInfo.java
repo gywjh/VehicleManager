@@ -19,33 +19,52 @@ public class MessageInfo {
 	@GeneratedValue
 	private Integer id;
 
-	@Column(name = "message_info", length = 200)
-	private String messageContent;
-
 	@Column(name = "record_time")
 	private Date recordTime;
 
 	@Column(name = "message_statu")
 	private Boolean messageState;
-	
+
+	@Column(name = "car_number", length = 20)
+	private String carNumber;
+
+	@Column(name = "place_name", length = 20)
+	private String placeName;
+
+	@Column(name = "good_type", length = 20)
+	private String goodType;
+
+	//0为未发送，1为发送
+	@Column(name = "send_status", length = 21)
+	private int sendStatus = 0;
+
 	@Column(name = "success_list", length = 200)
 	private String successList;
-	
+
 	@Column(name = "fail_list", length = 200)
 	private String failList;
 	
+	//0为入关，1为出关
+	@Column(name = "run_type", length = 2)
+	private int runType = 0;
+
 	public MessageInfo() {
 		super();
 	}
 
-	public MessageInfo(Integer id, String messageContent, Date recordTime, Boolean messageState,String successList, String failList) {
+	public MessageInfo(Integer id, Date recordTime, Boolean messageState, String carNumber, String placeName,
+			String goodType, int sendStatus, String successList, String failList, int runType) {
 		super();
 		this.id = id;
-		this.messageContent = messageContent;
 		this.recordTime = recordTime;
 		this.messageState = messageState;
+		this.carNumber = carNumber;
+		this.placeName = placeName;
+		this.goodType = goodType;
+		this.sendStatus = sendStatus;
 		this.successList = successList;
 		this.failList = failList;
+		this.runType = runType;
 	}
 
 	public Integer getId() {
@@ -54,14 +73,6 @@ public class MessageInfo {
 
 	public void setId(Integer id) {
 		this.id = id;
-	}
-
-	public String getMessageContent() {
-		return messageContent;
-	}
-
-	public void setMessageContent(String messageContent) {
-		this.messageContent = messageContent;
 	}
 
 	public Date getRecordTime() {
@@ -80,6 +91,38 @@ public class MessageInfo {
 		this.messageState = messageState;
 	}
 
+	public String getCarNumber() {
+		return carNumber;
+	}
+
+	public void setCarNumber(String carNumber) {
+		this.carNumber = carNumber;
+	}
+
+	public String getPlaceName() {
+		return placeName;
+	}
+
+	public void setPlaceName(String placeName) {
+		this.placeName = placeName;
+	}
+
+	public String getGoodType() {
+		return goodType;
+	}
+
+	public void setGoodType(String goodType) {
+		this.goodType = goodType;
+	}
+
+	public int getSendStatus() {
+		return sendStatus;
+	}
+
+	public void setSendStatus(int sendStatus) {
+		this.sendStatus = sendStatus;
+	}
+
 	public String getSuccessList() {
 		return successList;
 	}
@@ -94,6 +137,14 @@ public class MessageInfo {
 
 	public void setFailList(String failList) {
 		this.failList = failList;
+	}
+
+	public int getRunType() {
+		return runType;
+	}
+
+	public void setRunType(int runType) {
+		this.runType = runType;
 	}
 
 }

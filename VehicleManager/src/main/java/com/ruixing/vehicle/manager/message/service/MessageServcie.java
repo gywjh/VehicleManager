@@ -2,6 +2,8 @@ package com.ruixing.vehicle.manager.message.service;
 
 import java.util.List;
 
+import com.ruixing.vehicle.manager.domain.MessageInfo;
+
 public interface MessageServcie {
 
 	/**
@@ -40,4 +42,7 @@ public interface MessageServcie {
 	 * @param messageIdList
 	 */
 	public void updateMessage(List<String> messageIdList);
+	
+	public void saveMessage(MessageInfo messageInfo);
+	
 }

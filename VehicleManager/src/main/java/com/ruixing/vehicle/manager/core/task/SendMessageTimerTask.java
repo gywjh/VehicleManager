@@ -1,6 +1,5 @@
 package com.ruixing.vehicle.manager.core.task;
 
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,29 +12,31 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import com.ruixing.vehicle.manager.domain.MessageInfo;
-import com.ruixing.vehicle.manager.domain.VehicleInfo;
 import com.ruixing.vehicle.manager.message.dao.MessageRepository;
 import com.ruixing.vehicle.manager.user.dao.IUserInfoRepository;
-import com.ruixing.vehicle.manager.vehicle.dao.VehicleRepository;
 
 @Component
+@ConfigurationProperties
 public class SendMessageTimerTask {
 	private Logger logger = LoggerFactory.getLogger(SendMessageTimerTask.class);
 
-	@Value("${messageString}")
-	private String message;
+	@Value("${enterMessageString}")
+	private String enterMssage;
+	@Value("${leaveMessageString}")
+	private String leaveMessag;
+	
+	private Map<String, String> place = new HashMap<String,String>();
 
 	@Value("${passWord}")
 	private String passWord;
 
-	@Autowired
-	private VehicleRepository vehicleRepository;
 	@Autowired
 	private MessageRepository messageRepository;
 	@Autowired
@@ -45,22 +46,32 @@ public class SendMessageTimerTask {
 	@Scheduled(initialDelay = 10 * 1000, fixedDelay = 60 * 1000)
 	@Transactional
 	public void process() {
-		List<VehicleInfo> list = vehicleRepository.findeByMessageStatus();
+		List<MessageInfo> list = messageRepository.findeBySendStatus();
 		if (null != list && !list.isEmpty()) {
 			String sendMessage = "";
-			List<String> phoneNumberList = userRepository.queryPhoneNumber();
 			String phoneNumber = "";
-			if (null != phoneNumberList && !phoneNumberList.isEmpty()) {
-				phoneNumber = phoneNumberList.toString().replace("[", "").replace("]", "");
-			}
 			String carNumber = "";
-			String vehicleId = "";
+			String goodType = "";
+			int messageId = 0;
+			List<String> phoneNumberList = null;
 			HttpClient httpclient = null;
 			PostMethod post = null;
-			for (VehicleInfo vehicleInfo : list) {
-				carNumber = vehicleInfo.getChpNo();
-				vehicleId = vehicleInfo.getQrCode();
-				sendMessage = message.replace("#num", carNumber).replaceAll("#type", vehicleInfo.getFreightCategory());
+			for (MessageInfo messageInfo : list) {
+				carNumber = messageInfo.getCarNumber();
+				messageId = messageInfo.getId();
+				goodType = messageInfo.getGoodType();
+				phoneNumberList = userRepository.queryPhoneNumber();
+				if (null != phoneNumberList && !phoneNumberList.isEmpty()) {
+					phoneNumber = phoneNumberList.toString().replace("[", "").replace("]", "");
+				}
+				if(0 == messageInfo.getRunType())//根据出入类型选择发送不同的模板
+				{
+					sendMessage = enterMssage.replace("#num", carNumber).replaceAll("#type", goodType);
+				}
+				else
+				{
+					sendMessage = leaveMessag.replace("#num", carNumber).replaceAll("#type", goodType);
+				}
 				String info = null;
 				try {
 					httpclient = new HttpClient();
@@ -77,17 +88,16 @@ public class SendMessageTimerTask {
 					httpclient.executeMethod(post);
 					info = new String(post.getResponseBody(), "gbk");
 					if (info.contains("result=0&description=发送短信成功")) {
-						Map<String, String> numList = getFailList(info, phoneNumber);
-						messageRepository.save(getMessageInfo(sendMessage, numList));
-						vehicleRepository.updateMessageStatus(vehicleId);
-						logger.error("id为" + vehicleId + "，车牌号为 " + carNumber + "的车辆短信发送成功,response是：" + info);
+						Map<String, String> numList = getFailSuccessList(info, phoneNumber);
+						messageRepository.save(getMessageInfo(messageInfo, numList));
+						logger.error("id为" + messageId + "，车牌号为 " + carNumber + "的车辆短信发送成功,response是：" + info);
 					} else {
-						logger.error("id为" + vehicleId + "，车牌号为 " + carNumber + "的车辆短信发送失败,发送号码为：" + phoneNumber
+						logger.error("id为" + messageId + "，车牌号为 " + carNumber + "的车辆短信发送失败,发送号码为：" + phoneNumber
 								+ "message是：" + sendMessage + ",response是：" + info);
 					}
 
 				} catch (Exception e) {
-					logger.error("id为" + vehicleId + "，车牌号为 " + carNumber + "的车辆短信发送异常,发送号码为：" + phoneNumber
+					logger.error("id为" + messageId + "，车牌号为 " + carNumber + "的车辆短信发送异常,发送号码为：" + phoneNumber
 							+ "message是：" + sendMessage + ",response是：" + info);
 					TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
 				} finally {
@@ -98,17 +108,14 @@ public class SendMessageTimerTask {
 		}
 	}
 
-	private MessageInfo getMessageInfo(String MessageStr, Map<String, String> numberList) {
-		MessageInfo messInfo = new MessageInfo();
-		messInfo.setMessageContent(MessageStr);
-		messInfo.setFailList(numberList.get("fail"));
-		messInfo.setSuccessList(numberList.get("success"));
-		messInfo.setMessageState(true);
-		messInfo.setRecordTime(new Date());
-		return messInfo;
+	private MessageInfo getMessageInfo(MessageInfo messageInfo, Map<String, String> numberList) {
+		messageInfo.setFailList(numberList.get("fail"));
+		messageInfo.setSuccessList(numberList.get("success"));
+		messageInfo.setSendStatus(1);
+		return messageInfo;
 	}
 	
-	private Map<String, String> getFailList(String respon, String phoneNumber) {
+	private Map<String, String> getFailSuccessList(String respon, String phoneNumber) {
 
 		Map<String, String> list = new HashMap<String, String>();
 		String failStr = respon.substring(respon.indexOf("faillist=") + 9, respon.indexOf("&task_id"));
@@ -129,6 +136,14 @@ public class SendMessageTimerTask {
 		}
 
 		return list;
+	}
+
+	public Map<String, String> getPlace() {
+		return place;
+	}
+
+	public void setPlace(Map<String, String> place) {
+		this.place = place;
 	}
 
 }

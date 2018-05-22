@@ -54,4 +54,10 @@ public class MessageServiceImpl implements MessageServcie {
 		messageRepository.saveAndFlush(messageInfo);
 	}
 
+	@Override
+	public void saveMessage(MessageInfo messageInfo) {
+		messageRepository.save(messageInfo);
+		
+	}
+
 }
