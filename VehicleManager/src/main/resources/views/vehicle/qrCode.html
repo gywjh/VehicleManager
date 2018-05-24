@@ -2,52 +2,39 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 	<head>
 		<meta charset="UTF-8" />
-		<title>二维码</title>
-		<link rel="stylesheet" th:href="@{/css/bootstrap.css}"></link>
-		<link th:href="@{/bootstrap/bootstrap/css/bootstrap.min.css}"
-			rel="stylesheet" media="screen"></link>
-		<link th:href="@{/bootstrap/bootstrap/css/bootstrap-responsive.min.css}"
-			rel="stylesheet" media="screen"></link>
-		<link th:href="@{/vendors/easypiechart/jquery.easy-pie-chart.css}"
-			rel="stylesheet" media="screen"></link>
-		<link th:href="@{/assets/styles.css}" rel="stylesheet" media="screen"></link>
+		<title>二维码信息</title>
+		<link th:href="@{/assets/css/dpl-min.css}" rel="stylesheet" type="text/css" />
+		<link th:href="@{/assets/css/bui-min.css}" rel="stylesheet" type="text/css" />
+		<link th:href="@{/assets/css/page-min.css}" rel="stylesheet"
+			type="text/css" />
+		<link th:href="@{/assets/css/prettify.css}" rel="stylesheet"
+			type="text/css" />
+		<style type="text/css">
+			code {
+			padding: 0px 4px;
+			color: #d14;
+			background-color: #f7f7f9;
+			border: 1px solid #e1e1e8;
+			}
+		</style>
 	</head>
-	<body class="container">
-		
-				<!-- block -->
-				<div class="navbar navbar-inner block-header">
-					<div class="pull-left">
-						<span class="badge badge-info">
-							<p th:text=" ${chpNo}+'二维码'" />
-						</span>
-						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-						<a th:href="@{/vehicle/print(qrCode=${qrCode})}">打印</a>
-					</div>
+	<body>
+		<div class="container">
+		<div id="top_nav">
+				<span id="here_area"
+					style="top: 10px;height: 58px;line-height: 70px;color: #8A8A8A;font-size: 14px;border-bottom: 1px solid #EDEDED;
+}">当前位置：车辆管理&nbsp;>&nbsp;车辆二维码
+				</span>
+			</div>
+			<h2><p th:text=" ${chpNo}+'二维码'" /></h2>
+			<div class="row" style="text-align:center;">
+				<div class="span24" id="canvas">
+					<img data-src="holder.js/300x300" alt="300x300"  th:src="${qrCodePath}"></img>
 				</div>
-				<div class="block-content collapse in">
-					<div class="row-fluid padd-bottom">
-						<div class="span12">
-							<img data-src="holder.js/300x300" alt="300x300"
-								style="width: 300px; height: 300px;" th:src="${qrCodePath}"></img>
-						</div>
-					</div>
-			<!-- /block -->
+				<div class="span24" >
+					<h2><a th:href="@{/vehicle/print(qrCode=${qrCode})}">打印</a></h2>
+				</div>
+			</div>
 		</div>
-		<!--/.fluid-container -->
-
-		<script th:src="@{/js/jquery-1.9.1.js}"></script>
-		<script th:src="@{/bootstrap/bootstrap/js/bootstrap.min.js}"></script>
-		<script th:src="@{/vendors/datatables/js/jquery.dataTables.min.js}"></script>
-		<script th:src="@{/assets/scripts.js}"></script>
-		<script th:src="@{/assets/DT_bootstrap.js}"></script>
-		<script th:src="@{/vendors/easypiechart/jquery.easy-pie-chart.js}"></script>
-		<script>
-			$(function() {
-			// Easy pie charts
-			$('.chart').easyPieChart({animate: 1000});
-			});
-		</script>
 	</body>
 </html>

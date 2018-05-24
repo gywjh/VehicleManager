@@ -11,8 +11,13 @@ import org.jboss.netty.channel.Channels;
 import org.jboss.netty.channel.socket.nio.NioServerSocketChannelFactory;
 import org.jboss.netty.handler.logging.LoggingHandler;
 import org.jboss.netty.logging.InternalLogLevel;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.ruixing.vehicle.manager.vehicle.service.impl.VehicleServiceImpl;
 
 public class JTServer {
+	
 	public static void startServer() {
 		ChannelFactory factory = new NioServerSocketChannelFactory(Executors.newCachedThreadPool(),
 				Executors.newCachedThreadPool());
@@ -38,4 +43,5 @@ public class JTServer {
 
 		System.out.println("JTServer startup ....");
 	}
+	
 }

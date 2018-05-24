@@ -10,7 +10,7 @@ public interface MessageServcie {
 	 * 从中交平台获取数据
 	 * @return
 	 */
-	public String collectDataFromZJ();
+	public void collectDataFromZJ(MessageInfo messageInfo);
 	
 	/**
 	 * 从运政平台获取数据

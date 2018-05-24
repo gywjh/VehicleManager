@@ -30,8 +30,6 @@ public class VehicleController {
 	@RequestMapping(path = "/query", method = RequestMethod.GET)
 	public String queryVehicle(Model model) {
 		logger.error("start query message info.");
-		List<VehicleInfo> pageInfo = vehicleService.queryVehicleIfo("1");
-		model.addAttribute("vehicles", pageInfo);
 		return "vehicle/list";
 	}
 

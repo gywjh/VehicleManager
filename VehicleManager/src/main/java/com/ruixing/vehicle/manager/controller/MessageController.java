@@ -125,23 +125,6 @@ public class MessageController {
 		return "redirect:/message/qyeryRyc";
 	}
 
-	public void initServerData() {
-		List<MessageInfo> messageList = new ArrayList<MessageInfo>();
-		MessageInfo messageInfo = null;
-		Calendar cal = Calendar.getInstance();
-
-		Date date;
-		for (int i = 1; i < 21; i++) {
-			messageInfo = new MessageInfo();
-			messageInfo.setId(i);
-			messageInfo.setMessageState(true);
-			cal.add(Calendar.DATE, -i);
-			date = cal.getTime();
-			messageInfo.setRecordTime(date);
-			messageList.add(messageInfo);
-		}
-		messageRepository.save(messageList);
-	}
 
 	public int getTotalPage() {
 		return totalPage;

@@ -101,7 +101,8 @@
         tbar : {
           items : [
             {text : '<i class="icon-plus"></i>新建',btnCls : 'button button-small',handler:function(){location.href="/vehicle/add"}},
-            {text : '<i class="icon-remove"></i>删除',btnCls : 'button button-small',handler : delFunction}
+            {text : '<i class="icon-remove"></i>删除',btnCls : 'button button-small',handler : delFunction},
+            {text : '<i class="icon-download"></i>导出',btnCls : 'button button-small',handler:function(){location.href="/download/export"}}
           ]
         },
         plugins : [BUI.Grid.Plugins.CheckSelection] // 插件形式引入多选表格

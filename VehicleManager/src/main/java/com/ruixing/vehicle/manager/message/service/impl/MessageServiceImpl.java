@@ -1,5 +1,8 @@
 package com.ruixing.vehicle.manager.message.service.impl;
 
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,8 +21,11 @@ public class MessageServiceImpl implements MessageServcie {
 	private MessageRepository messageRepository;
 
 	@Override
-	public String collectDataFromZJ() {
-		return null;
+	public void collectDataFromZJ(MessageInfo messageInfo) {
+		messageInfo.setMessageState(true);
+		messageInfo.setSendStatus(0);
+		messageInfo.setRecordTime(new Date());
+		messageRepository.save(messageInfo);
 	}
 
 	@Override

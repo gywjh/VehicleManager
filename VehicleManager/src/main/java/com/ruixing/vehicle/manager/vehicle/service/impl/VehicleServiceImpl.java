@@ -29,7 +29,7 @@ public class VehicleServiceImpl implements IVehicleService {
 
 	Logger logger = LoggerFactory.getLogger(VehicleServiceImpl.class);
 
-	private DateFormat sf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+	private DateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	@Autowired
 	private VehicleRepository vehicleRepository;
 
