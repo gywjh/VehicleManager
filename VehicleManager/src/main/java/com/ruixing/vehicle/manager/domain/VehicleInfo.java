@@ -2,6 +2,7 @@ package com.ruixing.vehicle.manager.domain;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Transient;
 
 @Entity
 public class VehicleInfo {
@@ -48,8 +49,12 @@ public class VehicleInfo {
 	private String status = "1";
 	// 二维码图片路径
 	private String qrCodePath;
-	//短信发送状态
-	private int messageStatus = 0;
+
+	// 查询
+	@Transient
+	private String startDate;
+	@Transient
+	private String endDate;
 
 	public VehicleInfo() {
 	}
@@ -66,13 +71,13 @@ public class VehicleInfo {
 		this.freightCapacity = freightCapacity;
 		this.noteDate = noteDate;
 	}
-	
+
 	public VehicleInfo(String qrCode, String chpNo, String freightCategory) {
 		this.qrCode = qrCode;
 		this.chpNo = chpNo;
 		this.freightCategory = freightCategory;
 	}
-	
+
 	public String getQrCode() {
 		return qrCode;
 	}
@@ -225,12 +230,20 @@ public class VehicleInfo {
 		this.qrCodePath = qrCodePath;
 	}
 
-	public int getMessageStatus() {
-		return messageStatus;
+	public String getStartDate() {
+		return startDate;
 	}
 
-	public void setMessageStatus(int messageStatus) {
-		this.messageStatus = messageStatus;
+	public void setStartDate(String startDate) {
+		this.startDate = startDate;
+	}
+
+	public String getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(String endDate) {
+		this.endDate = endDate;
 	}
 
 }

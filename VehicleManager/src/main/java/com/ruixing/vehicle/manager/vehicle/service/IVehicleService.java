@@ -2,6 +2,9 @@ package com.ruixing.vehicle.manager.vehicle.service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import com.ruixing.vehicle.manager.domain.VehicleInfo;
 
 public interface IVehicleService {
@@ -29,7 +32,7 @@ public interface IVehicleService {
 	public VehicleInfo findByQrImge(String qrPath);
 
 	public VehicleInfo findByQrCode(String qrCode);
-	
+
 	/**
 	 * 删除车辆信息
 	 * 
@@ -45,6 +48,11 @@ public interface IVehicleService {
 	public String exprotVehicleInfo();
 
 	public List<VehicleInfo> queryVehicleIfo(String status);
-	
+
 	public List<VehicleInfo> queryAll();
+	
+	/**
+	 * 分页查询
+	 */
+	public 	Page<VehicleInfo> findAll(Pageable page,VehicleInfo vehicleInfo);
 }

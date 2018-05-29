@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,8 +17,8 @@ import com.ruixing.vehicle.manager.domain.TableEntity;
 import com.ruixing.vehicle.manager.domain.UserInfo;
 import com.ruixing.vehicle.manager.domain.VehicleInfo;
 import com.ruixing.vehicle.manager.message.dao.MessageRepository;
-import com.ruixing.vehicle.manager.message.service.MessageServcie;
 import com.ruixing.vehicle.manager.user.service.IUserinfoService;
+import com.ruixing.vehicle.manager.utils.Constants;
 import com.ruixing.vehicle.manager.vehicle.service.IVehicleService;
 
 @RestController
@@ -52,9 +53,11 @@ public class DataController {
 	}
 
 	@RequestMapping(path = "/vehicel/queryData", method = RequestMethod.GET)
-	public TableEntity<VehicleInfo> queryVehicle() {
+	public TableEntity<VehicleInfo> queryVehicle(int start, int limit, int pageIndex, VehicleInfo vehicleInfo) {
+
+		Pageable page = Constants.getPageable(pageIndex, "noteDate");
 		TableEntity<VehicleInfo> tableEntity = new TableEntity<VehicleInfo>();
-		List<VehicleInfo> pageInfo = vehicleService.queryVehicleIfo("1");
+		List<VehicleInfo> pageInfo = vehicleService.findAll(page, vehicleInfo).getContent();
 		tableEntity.setResults(pageInfo.size());
 		tableEntity.setRows(pageInfo);
 		return tableEntity;
@@ -113,8 +116,7 @@ public class DataController {
 		tableEntity.setRows(pageInfo);
 		return tableEntity;
 	}
-	
-	
+
 	@RequestMapping(path = "/message/deleteMessage", method = RequestMethod.GET)
 	public void deleteMessage(Integer ids[]) {
 		MessageInfo messageInfo = null;
