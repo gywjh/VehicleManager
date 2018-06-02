@@ -28,13 +28,13 @@
 						<div class="control-group span8">
 							<label class="control-label">用戶姓名：</label>
 							<div class="controls">
-								<input type="text" class="control-text" name="id" />
+								<input type="text" class="control-text" name="userName" />
 							</div>
 						</div>
 						<div class="control-group span8">
 							<label class="control-label">用戶手机号：</label>
 							<div class="controls">
-								<input type="text" class="control-text" name="stuName" />
+								<input type="text" class="control-text" name="phoneId" />
 							</div>
 						</div>
 						<div class="span3 offset2">
@@ -63,7 +63,8 @@
 			<script type="text/javascript">
   BUI.use(['common/search','bui/overlay'],function (Search,Overlay) {
     
-    var enumObj = {"1":"男","0":"女"},
+    var enumObj = {"0":"女","1":"男"},
+    deptObj = {"0":"大队领导","1":"交管科","2":"事故处理中队","3":"城区中队","4":"蔡垭中队","5":"孟石岭中队","6":"香河口中队","7":"民主中队"},
       columns = [
           {title:'用户编号',dataIndex:'id',width:50,renderer:function(v){
             return Search.createLink({
@@ -81,6 +82,7 @@
           {title:'警务编号',dataIndex:'policeOfficer',width:100},
           {title:'执勤单位名称',dataIndex:'organizationName',width:100},
           {title:'单位地址',dataIndex:'address',width:200},
+          {title:'所属部门',dataIndex:'subDept',width:200,renderer:BUI.Grid.Format.enumRenderer(deptObj)},
           {title:'操作',dataIndex:'',width:200,renderer : function(value,obj){
             var editStr = '<span class="grid-command btn-edit" title="编辑用户信息">编辑</span>';
             delStr = '<span class="grid-command btn-del" title="删除用户信息">删除</span>';//页面操作不需要使用Search.createLink

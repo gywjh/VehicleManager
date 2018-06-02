@@ -23,7 +23,7 @@ public class UserInfo {
 	private Integer id;
 	
 	/**用户手机号*/
-	@Column(name = "phone_id", nullable = false, length = 20)
+	@Column(nullable = false, length = 20)
 	private String phoneId;
 	
 	/**密码*/
@@ -31,7 +31,7 @@ public class UserInfo {
 	private String password;
 	
 	/**用户名称*/
-	@Column(name = "user_name", nullable = false, length = 20)
+	@Column(nullable = false, length = 20)
 	private String userName;
 	
 	/**性别*/
@@ -57,6 +57,10 @@ public class UserInfo {
 	/**地址*/
 	@Column(nullable = false)
 	private String address;
+	
+	/**所属部门*/
+	@Column(nullable = false)
+	private String subDept;
 	
 	/**角色*/
 	@Column(nullable = false, length = 20)
@@ -148,6 +152,14 @@ public class UserInfo {
 
 	public void setPhoneId(String phoneId) {
 		this.phoneId = phoneId;
+	}
+
+	public String getSubDept() {
+		return subDept;
+	}
+
+	public void setSubDept(String subDept) {
+		this.subDept = subDept;
 	}
 	
 	

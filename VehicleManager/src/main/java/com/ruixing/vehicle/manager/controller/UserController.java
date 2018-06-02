@@ -3,6 +3,8 @@ package com.ruixing.vehicle.manager.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,8 +65,19 @@ public class UserController {
 	
 	
 	@RequestMapping(path = "/delete", method = RequestMethod.GET)
-	public String deleteUser(Model model, Integer id) {
-		service.delUserInfoById(id);
+	public String deleteUser(HttpSession session, Model model, Integer[] ids) {
+		UserInfo user = (UserInfo) session.getAttribute("user");
+		for(Integer id : ids)
+		{
+			if (id.equals(user.getId()))
+			{
+				model.addAttribute("messageError","不能删除自己");
+			}
+			else
+			{
+				service.delUserInfoById(id);
+			}
+		}
 		return "redirect:/user/query";
 	}
 

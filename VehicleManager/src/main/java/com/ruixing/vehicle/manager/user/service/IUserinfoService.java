@@ -2,6 +2,9 @@ package com.ruixing.vehicle.manager.user.service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import com.ruixing.vehicle.manager.domain.UserInfo;
 
 public interface IUserinfoService {
@@ -17,5 +20,10 @@ public interface IUserinfoService {
 	boolean addUserInfo(UserInfo userInfo);
 
 	boolean updateUserInfo(UserInfo userInfo);
+	
+	/**
+	 * 分页查询
+	 */
+	public 	Page<UserInfo> findAll(Pageable page,UserInfo userInfo);
 
 }

@@ -36,12 +36,14 @@ public class DataController {
 	private MessageRepository messageRepository;
 
 	@RequestMapping(path = "/user/queryUser", method = RequestMethod.GET)
-	public TableEntity<UserInfo> queryUser() {
-		logger.error("start query message info.");
+	public TableEntity<UserInfo> queryUser(int start, int limit, int pageIndex, UserInfo userInfo) {
+		
+		Pageable page = Constants.getPageable(pageIndex, "id");
 		TableEntity<UserInfo> tableEntity = new TableEntity<UserInfo>();
-		List<UserInfo> users = service.queryAllUserInfo();
-		tableEntity.setRows(users);
-		tableEntity.setResults(users.size());
+		List<UserInfo> userInfos = service.findAll(page, userInfo).getContent();
+		tableEntity.setResults(userInfos.size());
+		tableEntity.setRows(userInfos);
+
 		return tableEntity;
 	}
 
