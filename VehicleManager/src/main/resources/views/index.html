@@ -7,6 +7,7 @@
 <meta charset="utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="icon" type="image/x-icon" href="/static/favicon.ico" />
 <title>危化品运输车辆动态管理平台</title>
 <!--Bootstrap-->
 <link th:href="@{Bootstrap/bootstrap/css/bootstrap.min.css}"
@@ -27,6 +28,8 @@
 <script th:src="@{Bootstrap/bootstrap/js/bootstrap.min.js}"></script>
 <script th:src="@{Bootstrap/sidebar-menu/sidebar-menu.js}"></script>
 <script th:src="@{Bootstrap/bootstrap/js/bootstrap-tab.js}"></script>
+<link th:href="@{css/dark.css}" rel="stylesheet" />
+<link th:href="@{css/index.css}" rel="stylesheet" />
 <!--[if lt IE 9]>  
         <script src="/Scripts/html5shiv.js"></script>  
         <script src="/Scripts/respond.min.js"></script>  
@@ -43,19 +46,57 @@ body {
 .tab-content {
 	padding-top: 3px;
 }
+/* dock - top */
+.dock {
+	position: relative;
+	height: 50px;
+	text-align: center; -
+	-width: 500px;
+	float: right;
+	padding-right: 100px;
+}
+
+.dock-container {
+	height: 50px;
+	padding-left: 20px;
+}
+
+a.dock-item {
+	display: inline-block;
+	width: 40px;
+	color: #fff; -
+	-position: absolute;
+	top: 0px;
+	text-align: center;
+	text-decoration: none;
+	font: bold 12px Arial, Helvetica, sans-serif;
+}
+
+.dock-item img {
+	border: none;
+	margin: 5px 10px 0px;
+	width: 40px;
+}
+
+.dock-item span {
+	display:none;
+	padding-left: 20px;
+}
 </style>
 </head>
 <body style="overflow-x: hidden">
-	<div class="navbar navbar-default" id="navbar" style="background-color: #044599;">
+	<div class="navbar navbar-default" id="navbar"
+		style="background-color: #044599;">
 
 		<ul class="navbar-header pull-left">
 
 			<a class="fa fa-list-ul menu-toggler" id="menu-toggler" href="#">
 				<i class="icon-reorder"
-				style="font-size: 20px; margin-left: -18px; margin-top: 8px;background-color: #044599;"></i>
+				style="font-size: 20px; margin-left: -18px; margin-top: 8px; background-color: #044599;"></i>
 			</a>
 
-			<a href="#" class="navbar-brand"> <small style="background-color: #044599;"> 危化品运输车辆动态管理平台 </small>
+			<a href="#" class="navbar-brand"> <small
+				style="background-color: #044599;"> 危化品运输车辆动态管理平台 </small>
 			</a>
 		</ul>
 		<div class="navbar-header pull-right" role="navigation">
@@ -79,7 +120,28 @@ body {
 						</a></li>
 					</ul></li>
 			</ul>
+		</div> 
+		<div class="dock" id="dock"><!-- 
+			<div class="dock-container">
+				<a class="dock-item" href="index.jsp" title="首页"><img
+					th:src="@{images/index/home.png}" alt="home" /><span>首页</span> </a>
+				 <a
+					class="dock-item" href="#" onclick="window.history.go(-1)"
+					title="后退"><img th:src="@{images/index/email.png}"
+					alt="contact" /><span>后退</span> </a> 
+				<a class="dock-item" href="#"
+					onclick="window.history.go(1)" title="前进"><img
+					th:src="@{images/index/portfolio.png}" alt="portfolio" /><span>前进</span>
+				</a> <a class="dock-item" href="/ExamOnline/index.jsp" title="重新登陆"><img
+					th:src="@{images/index/music.png}" alt="music" /><span>重新登录</span>
+				</a> <a class="dock-item" target="frmright"
+					href="content/updateAdmin.jsp" title="修改密码"><img
+					th:src="@{images/index/video.png}" alt="video" /><span>修改密码</span>
+				</a> <a class="dock-item" href="/logout" title="退出系统"><img
+					th:src="@{images/index/rss2.png}" alt="rss" /><span>退出系统</span> </a>
+			</div> -->
 		</div>
+		<div style="clear: both"></div>
 	</div>
 
 	<div class="main-container" id="main-container">
@@ -93,24 +155,25 @@ body {
 						data-icon2="icon-double-angle-right"></i>
 				</div>
 				<ul class="nav nav-list" id="menu"></ul>
-
 			</div>
 			<div class="main-content">
-				<div class="page-content">
-					<div class="row">
-						<div class="col-xs-12" style="padding-left: 5px;">
-							<ul class="nav nav-tabs" role="tablist">
-								<li class="active"><a href="#Index" role="tab"
-									data-toggle="tab">系统首页</a></li>
-							</ul>
-							<div class="tab-content" style="height: 700px">
-								<div role="tabpanel" class="tab-pane active" id="Index"
-									style="height: auto">
-									<h2>欢迎进入危化品运输车辆动态后台管理系统</h2>
-								</div>
+				<div class="content_main_top">
+					<div class="round_main">
+						<div class="round_left">
+							<div class="round_content">
+								<font color="#000000">当前位置：<strong id="shouye">系统首页</strong><strong
+									id="location" style="display: none;">[<span
+										id="parentMenu"></span>]&nbsp;-&nbsp;[<span id="subMenu"></span>]
+								</strong>
+								</font>
 							</div>
 						</div>
 					</div>
+				</div>
+				<div id="content_main_middle">
+					<iframe width='100%' height="100%" scrolling="auto" frameBorder='0'
+						id='frmright' name="frmright" class="left_iframe"
+						allowTransparency="true"></iframe>
 				</div>
 			</div>
 
@@ -120,9 +183,23 @@ body {
 	<script type="text/javascript">
 		//toastr.options.positionClass = 'toast-bottom-right';  
 		$(function() {
+			var bodyH = document.documentElement.clientHeight;
+			$("body").height(bodyH);
+			var navTop = $("#navbar").height();
+			var contentH = bodyH - navTop;
+			$(".main-container-inner,#main-container").height(contentH);
+			//$(".main-content").height(contentH-50);
+			$("#frmright").height(contentH - 50);
+
 			$('#menu').sidebarMenu({
-				url:"/menu"
+				url : "/menu"
 			});
+			$(".subli").click(
+					function() {
+						var parentMenu = $(this).parent().siblings("a").find(
+								".menu-text").text();
+						alert(parentMenu)
+					});
 
 			$("#menu-toggler").click(
 					function() {
