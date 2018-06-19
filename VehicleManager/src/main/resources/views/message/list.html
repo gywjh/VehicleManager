@@ -77,14 +77,15 @@
     var enumObj = {"1":"已发送","0":"未发送"},
       columns = [
           {title:'#',dataIndex:'id',width:50},
-          {title:'短信内容',dataIndex:'messageContent',width:200},
-          {title:'短信发送状态',dataIndex:'sendStatus',width:50,renderer:BUI.Grid.Format.enumRenderer(enumObj)},
-          {title:'成功列表',dataIndex:'successList',width:50},
+//           {title:'短信内容',dataIndex:'messageContent',width:200},
+		  {title:'车牌号',dataIndex:'carNumber',width:100},
+          {title:'关卡',dataIndex:'placeName',width:100},
+//           {title:'是否护送',dataIndex:'address',width:50},
+          {title:'货物信息',dataIndex:'goodType',width:100},
+          {title:'短信发送状态',dataIndex:'sendStatus',width:80,renderer:BUI.Grid.Format.enumRenderer(enumObj)},
+          {title:'成功列表',dataIndex:'successList',width:150},
           {title:'失败列表',dataIndex:'failList',width:150},
           {title:'记录时间',dataIndex:'recordTime',width:100,renderer:BUI.Grid.Format.dateRenderer},
-          {title:'关卡',dataIndex:'organizationName',width:100},
-          {title:'是否护送',dataIndex:'address',width:50},
-          {title:'货物信息',dataIndex:'address',width:100},
           {title:'操作',dataIndex:'',width:50,renderer : function(value,obj){
             var delStr = '<span class="grid-command btn-del" title="删除短信信息">删除</span>';
             return delStr;
