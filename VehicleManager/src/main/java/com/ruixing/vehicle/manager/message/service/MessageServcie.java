@@ -2,6 +2,9 @@ package com.ruixing.vehicle.manager.message.service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import com.ruixing.vehicle.manager.domain.MessageInfo;
 
 public interface MessageServcie {
@@ -45,4 +48,8 @@ public interface MessageServcie {
 	
 	public void saveMessage(MessageInfo messageInfo);
 	
+	/**
+	 * 分页查询
+	 */
+	public 	Page<MessageInfo> findAll(Pageable page,MessageInfo messageInfo,boolean status);
 }

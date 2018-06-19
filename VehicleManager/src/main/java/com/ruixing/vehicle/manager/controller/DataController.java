@@ -17,6 +17,7 @@ import com.ruixing.vehicle.manager.domain.TableEntity;
 import com.ruixing.vehicle.manager.domain.UserInfo;
 import com.ruixing.vehicle.manager.domain.VehicleInfo;
 import com.ruixing.vehicle.manager.message.dao.MessageRepository;
+import com.ruixing.vehicle.manager.message.service.MessageServcie;
 import com.ruixing.vehicle.manager.user.service.IUserinfoService;
 import com.ruixing.vehicle.manager.utils.Constants;
 import com.ruixing.vehicle.manager.vehicle.service.IVehicleService;
@@ -31,13 +32,16 @@ public class DataController {
 
 	@Resource
 	private IVehicleService vehicleService;
-
+	
+	@Resource
+	private MessageServcie messageServcie;
+	
 	@Autowired
 	private MessageRepository messageRepository;
 
 	@RequestMapping(path = "/user/queryUser", method = RequestMethod.GET)
 	public TableEntity<UserInfo> queryUser(int start, int limit, int pageIndex, UserInfo userInfo) {
-		
+
 		Pageable page = Constants.getPageable(pageIndex, "id");
 		TableEntity<UserInfo> tableEntity = new TableEntity<UserInfo>();
 		List<UserInfo> userInfos = service.findAll(page, userInfo).getContent();
@@ -56,10 +60,21 @@ public class DataController {
 
 	@RequestMapping(path = "/vehicel/queryData", method = RequestMethod.GET)
 	public TableEntity<VehicleInfo> queryVehicle(int start, int limit, int pageIndex, VehicleInfo vehicleInfo) {
-
+		logger.info("query vehicle info.");
 		Pageable page = Constants.getPageable(pageIndex, "noteDate");
 		TableEntity<VehicleInfo> tableEntity = new TableEntity<VehicleInfo>();
-		List<VehicleInfo> pageInfo = vehicleService.findAll(page, vehicleInfo).getContent();
+		List<VehicleInfo> pageInfo = vehicleService.findAll(page, vehicleInfo, "1").getContent();
+		tableEntity.setResults(pageInfo.size());
+		tableEntity.setRows(pageInfo);
+		return tableEntity;
+	}
+
+	@RequestMapping(path = "/vehicel/queryRycData", method = RequestMethod.GET)
+	public TableEntity<VehicleInfo> queryRycData(int start, int limit, int pageIndex, VehicleInfo vehicleInfo) {
+		logger.info("query vehicle  ryc info.");
+		Pageable page = Constants.getPageable(pageIndex, "noteDate");
+		TableEntity<VehicleInfo> tableEntity = new TableEntity<VehicleInfo>();
+		List<VehicleInfo> pageInfo = vehicleService.findAll(page, vehicleInfo, "0").getContent();
 		tableEntity.setResults(pageInfo.size());
 		tableEntity.setRows(pageInfo);
 		return tableEntity;
@@ -92,28 +107,22 @@ public class DataController {
 		}
 	}
 
-	@RequestMapping(path = "/vehicel/queryRycData", method = RequestMethod.GET)
-	public TableEntity<VehicleInfo> queryRycVehicle() {
-		TableEntity<VehicleInfo> tableEntity = new TableEntity<VehicleInfo>();
-		List<VehicleInfo> pageInfo = vehicleService.queryVehicleIfo("0");
-		tableEntity.setResults(pageInfo.size());
-		tableEntity.setRows(pageInfo);
-		return tableEntity;
-	}
-
 	@RequestMapping(path = "/message/queryMessageData", method = RequestMethod.GET)
-	public TableEntity<MessageInfo> queryMessageData() {
+	public TableEntity<MessageInfo> queryMessageData(int start, int limit, int pageIndex, MessageInfo messageInfo) {
 		TableEntity<MessageInfo> tableEntity = new TableEntity<MessageInfo>();
-		List<MessageInfo> pageInfo = messageRepository.findAllByMessageState(true);
+		Pageable page = Constants.getPageable(pageIndex, "recordTime");
+		List<MessageInfo> pageInfo = messageServcie.findAll(page, messageInfo, true).getContent();
 		tableEntity.setResults(pageInfo.size());
 		tableEntity.setRows(pageInfo);
 		return tableEntity;
+		
 	}
 
 	@RequestMapping(path = "/message/queryRycMessage", method = RequestMethod.GET)
-	public TableEntity<MessageInfo> queryRycMessage() {
+	public TableEntity<MessageInfo> queryRycMessage(int start, int limit, int pageIndex, MessageInfo messageInfo) {
 		TableEntity<MessageInfo> tableEntity = new TableEntity<MessageInfo>();
-		List<MessageInfo> pageInfo = messageRepository.findAllByMessageState(false);
+		Pageable page = Constants.getPageable(pageIndex, "recordTime");
+		List<MessageInfo> pageInfo = messageServcie.findAll(page, messageInfo, false).getContent();
 		tableEntity.setResults(pageInfo.size());
 		tableEntity.setRows(pageInfo);
 		return tableEntity;

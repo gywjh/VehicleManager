@@ -35,14 +35,6 @@ public interface VehicleRepository extends JpaRepository<VehicleInfo, String> {
 	void deleteByQrCode(String qrCode);
 
 	/**
-	 * 更新车辆短信发送信息
-	 */
-	@Query(value = "update vehicle_info set message_status = 1 where qr_code = ?1", nativeQuery = true)
-	@Modifying
-	@Transactional
-	void updateMessageStatus(String id);
-	
-	/**
 	 * 分页查询
 	 * @param spc
 	 * @param pageable

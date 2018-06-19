@@ -54,5 +54,5 @@ public interface IVehicleService {
 	/**
 	 * 分页查询
 	 */
-	public 	Page<VehicleInfo> findAll(Pageable page,VehicleInfo vehicleInfo);
+	public 	Page<VehicleInfo> findAll(Pageable page,VehicleInfo vehicleInfo,String status);
 }

@@ -34,7 +34,10 @@
 						<div class="control-group span8">
 							<label class="control-label">短信状态：</label>
 							<div class="controls">
-								<input type="text" class="control-text" name="messageState" />
+								<select data-rules="{required:true}" name="sendStatus" class="input-normal">
+									<option value="0">未发送</option>
+									<option value="1">已发送</option>
+								</select>
 							</div>
 						</div>
 						<div class="control-group span9">
@@ -71,12 +74,12 @@
 			<script type="text/javascript">
   BUI.use(['common/search','bui/overlay'],function (Search,Overlay) {
     
-    var enumObj = {"1":"男","0":"女"},
+    var enumObj = {"1":"已发送","0":"未发送"},
       columns = [
           {title:'#',dataIndex:'id',width:50},
           {title:'短信内容',dataIndex:'messageContent',width:200},
-          {title:'短信发送状态',dataIndex:'sendStatus',width:50},
-          {title:'成功列表',dataIndex:'successList',width:50,renderer:BUI.Grid.Format.enumRenderer(enumObj)},
+          {title:'短信发送状态',dataIndex:'sendStatus',width:50,renderer:BUI.Grid.Format.enumRenderer(enumObj)},
+          {title:'成功列表',dataIndex:'successList',width:50},
           {title:'失败列表',dataIndex:'failList',width:150},
           {title:'记录时间',dataIndex:'recordTime',width:100,renderer:BUI.Grid.Format.dateRenderer},
           {title:'关卡',dataIndex:'organizationName',width:100},

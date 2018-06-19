@@ -1,11 +1,21 @@
 package com.ruixing.vehicle.manager.message.service.impl;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Path;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import com.ruixing.vehicle.manager.domain.MessageInfo;
 import com.ruixing.vehicle.manager.message.dao.MessageRepository;
@@ -62,6 +72,33 @@ public class MessageServiceImpl implements MessageServcie {
 	public void saveMessage(MessageInfo messageInfo) {
 		messageRepository.save(messageInfo);
 		
+	}
+
+	@Override
+	public Page<MessageInfo> findAll(Pageable pageable, MessageInfo messageInfo, boolean status) {
+		Page<MessageInfo> eList = messageRepository.findAll(new Specification<MessageInfo>() {
+			@Override
+			public Predicate toPredicate(Root<MessageInfo> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder cb) {
+				Path<String> messageState = root.get("messageState");
+				Path<String> recordTime = root.get("recordTime");
+				Path<String> sendStatus = root.get("sendStatus");
+				List<Predicate> predicates = new ArrayList<>();
+				if (!StringUtils.isEmpty(messageInfo.getSendStatus())) {
+					predicates.add(cb.equal(sendStatus.as(Integer.class), messageInfo.getSendStatus()));
+				}
+				if (!StringUtils.isEmpty(messageInfo.getStartDate())) {
+					predicates.add(cb.greaterThan(recordTime.as(String.class), messageInfo.getStartDate()));
+				}
+				if (!StringUtils.isEmpty(messageInfo.getEndDate())) {
+					predicates.add(cb.lessThanOrEqualTo(recordTime.as(String.class), messageInfo.getEndDate()));
+				}
+				predicates.add(cb.equal(messageState.as(Boolean.class), status));
+				Predicate[] pre = new Predicate[predicates.size()];
+				criteriaQuery.where(predicates.toArray(pre));
+				return cb.and(predicates.toArray(pre));
+			}
+		}, pageable);
+		return eList;
 	}
 
 }

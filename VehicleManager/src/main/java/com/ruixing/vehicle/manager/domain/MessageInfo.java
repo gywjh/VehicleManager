@@ -6,6 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Transient;
 
 /**
  * 短信实体类
@@ -34,7 +35,7 @@ public class MessageInfo {
 	@Column(name = "good_type", length = 20)
 	private String goodType;
 
-	//0为未发送，1为发送
+	// 0为未发送，1为发送
 	@Column(name = "send_status", length = 21)
 	private int sendStatus = 0;
 
@@ -43,10 +44,16 @@ public class MessageInfo {
 
 	@Column(name = "fail_list", length = 200)
 	private String failList;
-	
-	//0为入关，1为出关
+
+	// 0为入关，1为出关
 	@Column(name = "run_type", length = 2)
 	private int runType = 0;
+
+	// 查询
+	@Transient
+	private String startDate;
+	@Transient
+	private String endDate;
 
 	public MessageInfo() {
 		super();
@@ -145,6 +152,22 @@ public class MessageInfo {
 
 	public void setRunType(int runType) {
 		this.runType = runType;
+	}
+
+	public String getStartDate() {
+		return startDate;
+	}
+
+	public void setStartDate(String startDate) {
+		this.startDate = startDate;
+	}
+
+	public String getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(String endDate) {
+		this.endDate = endDate;
 	}
 
 }

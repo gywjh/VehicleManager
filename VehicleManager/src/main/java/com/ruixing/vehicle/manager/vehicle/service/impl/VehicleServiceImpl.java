@@ -149,7 +149,7 @@ public class VehicleServiceImpl implements IVehicleService {
 	}
 
 	@Override
-	public Page<VehicleInfo> findAll(Pageable pageable, VehicleInfo vehicleInfo) {
+	public Page<VehicleInfo> findAll(Pageable pageable, VehicleInfo vehicleInfo,String statu) {
 		Page<VehicleInfo> eList = vehicleRepository.findAll(new Specification<VehicleInfo>() {
 			@Override
 			public Predicate toPredicate(Root<VehicleInfo> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder cb) {
@@ -157,6 +157,7 @@ public class VehicleServiceImpl implements IVehicleService {
 				Path<String> chpColor = root.get("chpColor");
 				Path<String> driverName = root.get("driverName");
 				Path<String> noteDate = root.get("noteDate");
+				Path<String> status = root.get("status");
 				List<Predicate> predicates = new ArrayList<>();
 				if (!StringUtils.isEmpty(vehicleInfo.getChpNo())) {
 					predicates.add(cb.like(chpNo.as(String.class), "%" + vehicleInfo.getChpNo() + "%"));
@@ -173,6 +174,7 @@ public class VehicleServiceImpl implements IVehicleService {
 				if (!StringUtils.isEmpty(vehicleInfo.getEndDate())) {
 					predicates.add(cb.lessThanOrEqualTo(noteDate.as(String.class), vehicleInfo.getEndDate()));
 				}
+				predicates.add(cb.equal(status.as(String.class), statu));
 				Predicate[] pre = new Predicate[predicates.size()];
 				criteriaQuery.where(predicates.toArray(pre));
 				return cb.and(predicates.toArray(pre));
