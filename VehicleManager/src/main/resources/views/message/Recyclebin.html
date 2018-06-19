@@ -35,6 +35,7 @@
 							<label class="control-label">短信状态：</label>
 							<div class="controls">
 								<select data-rules="{required:true}" name="sendStatus" class="input-normal">
+									<option value="-1">全部</option>
 									<option value="0">未发送</option>
 									<option value="1">已发送</option>
 								</select>
@@ -74,17 +75,19 @@
 			<script type="text/javascript">
   BUI.use(['common/search','bui/overlay'],function (Search,Overlay) {
     
-    var enumObj = {"1":"已发送","0":"未发送"},
+    var enumObj = {"1":"已发送","0":"未发送"}, typeObj = {"1":"入关","0":"出关"},
       columns = [
-          {title:'#',dataIndex:'id',width:50},
-          {title:'短信内容',dataIndex:'messageContent',width:200},
-          {title:'短信发送状态',dataIndex:'sendStatus',width:50,width:50,renderer:BUI.Grid.Format.enumRenderer(enumObj)},
-          {title:'成功列表',dataIndex:'successList'},
-          {title:'失败列表',dataIndex:'failList',width:150},
-          {title:'记录时间',dataIndex:'recordTime',width:100,renderer:BUI.Grid.Format.dateRenderer},
-          {title:'关卡',dataIndex:'organizationName',width:100},
-          {title:'是否护送',dataIndex:'address',width:50},
-          {title:'货物信息',dataIndex:'address',width:100},
+    	  {title:'#',dataIndex:'id',width:50},
+//        {title:'短信内容',dataIndex:'messageContent',width:200},
+		  {title:'车牌号',dataIndex:'carNumber',width:100},
+       {title:'关卡',dataIndex:'placeName',width:100},
+       {title:'出/入关',dataIndex:'runType',width:100,renderer:BUI.Grid.Format.enumRenderer(typeObj)},
+//        {title:'是否护送',dataIndex:'address',width:50},
+       {title:'货物信息',dataIndex:'goodType',width:100},
+       {title:'短信发送状态',dataIndex:'sendStatus',width:80,renderer:BUI.Grid.Format.enumRenderer(enumObj)},
+       {title:'成功列表',dataIndex:'successList',width:150},
+       {title:'失败列表',dataIndex:'failList',width:150},
+       {title:'记录时间',dataIndex:'recordTime',width:100,renderer:BUI.Grid.Format.dateRenderer},
           {title:'操作',dataIndex:'',width:100,renderer : function(value,obj){
              var editStr = '<span class="grid-command btn-edit" title="编辑短信信息">恢复</span>';
             delStr = '<span class="grid-command btn-del" title="删除短信信息">永久删除</span>'

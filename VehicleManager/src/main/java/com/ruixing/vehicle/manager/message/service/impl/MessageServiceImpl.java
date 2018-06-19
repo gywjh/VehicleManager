@@ -83,7 +83,7 @@ public class MessageServiceImpl implements MessageServcie {
 				Path<String> recordTime = root.get("recordTime");
 				Path<String> sendStatus = root.get("sendStatus");
 				List<Predicate> predicates = new ArrayList<>();
-				if (!StringUtils.isEmpty(messageInfo.getSendStatus())) {
+				if (-1 != messageInfo.getSendStatus()) {
 					predicates.add(cb.equal(sendStatus.as(Integer.class), messageInfo.getSendStatus()));
 				}
 				if (!StringUtils.isEmpty(messageInfo.getStartDate())) {
